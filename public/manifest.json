@@ -1,0 +1,47 @@
+{
+  "name": "OpenFurqan",
+  "short_name": "OpenFurqan",
+  "description": "A modern Quran reader with translations in English, Bangla & Urdu. Word-by-word analysis, audio recitation, prayer times & study tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1c20",
+  "theme_color": "#0b1c20",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["books", "education", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/openfurqan-app-v6-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/openfurqan-app-v6-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/openfurqan-maskable-v6-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/openfurqan-maskable-v6-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Continue Reading",
+      "short_name": "Continue",
+      "description": "Continue from where you left off",
+      "url": "/"
+    }
+  ]
+}

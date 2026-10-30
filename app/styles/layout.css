@@ -1,0 +1,260 @@
+/**
+ * Layout Styles
+ * App container, content grid, panels, topbar, logo
+ */
+
+/* =============================================
+   App Container
+   ============================================= */
+
+.app {
+    position: relative;
+    z-index: 1;
+    max-width: 1600px;
+    margin: 0 auto;
+    background-color: var(--bg-deep);
+    padding: 24px 24px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* =============================================
+   Top Bar
+   ============================================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+
+/* Study mode button pulse - first visit only */
+@keyframes study-pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(111, 212, 177, 0); }
+  12.5% { box-shadow: 0 0 12px 4px rgba(111, 212, 177, 0.35); }
+  25% { box-shadow: 0 0 0 0 rgba(111, 212, 177, 0); }
+  37.5% { box-shadow: 0 0 12px 4px rgba(111, 212, 177, 0.35); }
+  50% { box-shadow: 0 0 0 0 rgba(111, 212, 177, 0); }
+  62.5% { box-shadow: 0 0 12px 4px rgba(111, 212, 177, 0.35); }
+  75% { box-shadow: 0 0 0 0 rgba(111, 212, 177, 0); }
+  87.5% { box-shadow: 0 0 12px 4px rgba(111, 212, 177, 0.35); }
+}
+
+.action-btn.study-pulse {
+  animation: study-pulse-glow 6s ease-in-out 1;
+}
+
+.study-btn-wrapper {
+  position: relative;
+}
+
+@keyframes study-tooltip-in {
+  0% { opacity: 0; transform: translateY(4px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(4px); }
+}
+
+.study-tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #d8fff0;
+  background: rgba(22, 30, 36, 0.92);
+  border: 1px solid rgba(111, 212, 177, 0.25);
+  border-radius: 8px;
+  padding: 8px 12px;
+  pointer-events: auto;
+  cursor: pointer;
+  animation: study-tooltip-in 6s ease-in-out forwards;
+  z-index: 100;
+}
+
+.study-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 16px;
+  width: 8px;
+  height: 8px;
+  background: rgba(22, 30, 36, 0.92);
+  border-top: 1px solid rgba(111, 212, 177, 0.25);
+  border-left: 1px solid rgba(111, 212, 177, 0.25);
+  transform: rotate(45deg);
+}
+
+/* =============================================
+   Logo
+   ============================================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.brand-symbol {
+    width: 32px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    background: url('/icons/openfurqan-header-mark-v1.png') center / contain no-repeat;
+    transform: translateY(1px);
+}
+
+.logo-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    color: var(--accent);
+    background:
+        radial-gradient(120% 120% at 10% 10%, rgba(255, 255, 255, 0.15), transparent 55%),
+        linear-gradient(145deg, #1a2e33 0%, #0d1a1e 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logo:hover .logo-mark {
+    transform: translateY(-1px);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.25),
+        0 12px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.logo-mark img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0;
+}
+
+.logo-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    line-height: 1;
+}
+
+.logo-highlight {
+    color: var(--accent-2);
+    font-weight: 700;
+}
+
+:root[data-theme="dark"] .logo-highlight {
+    color: #66c7a8;
+}
+
+/* =============================================
+   Content Grid
+   ============================================= */
+
+.content {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) 300px;
+    gap: 20px;
+}
+
+.content.reading {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.content.reading .surah-panel,
+.content.reading .study-panel {
+    display: none;
+}
+
+/* =============================================
+   Panels (Base)
+   ============================================= */
+
+.panel {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 0;
+    overflow: visible;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 640px) {
+    .app {
+        padding: 16px 16px 80px;
+        gap: 14px;
+    }
+
+    .topbar {
+        padding: 8px 0;
+    }
+
+    .logo-mark {
+        display: none;
+    }
+
+    .brand-symbol {
+        display: none;
+    }
+
+    .study-btn-wrapper .action-btn {
+        background: rgba(255, 255, 255, 0.10);
+        border: none;
+        color: var(--text);
+        box-shadow: none;
+    }
+
+    :root[data-theme="light"] .study-btn-wrapper .action-btn {
+        background: rgba(66, 82, 54, 0.09);
+    }
+
+    :root[data-theme="bw"] .study-btn-wrapper .action-btn {
+        background: rgba(0, 0, 0, 0.07);
+    }
+
+    .study-tooltip {
+        right: 0;
+        max-width: min(260px, calc(100vw - 32px));
+        white-space: normal;
+        line-height: 1.35;
+        text-wrap: balance;
+    }
+}

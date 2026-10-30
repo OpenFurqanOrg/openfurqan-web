@@ -1,0 +1,1478 @@
+/* =============================================
+   SKY THEME — Sky blue bg, Ocean teal boxes, Navy text
+   Light, airy theme inspired by open skies over the sea
+   ============================================= */
+
+:root[data-theme="sky"] {
+  color-scheme: light;
+
+  /* Sky blue backgrounds */
+  --bg-deep: #b8d4e4;
+  --bg-mid: #b3d1e0;
+  --bg-light: #dbeaf2;
+  --card: rgba(232, 243, 249, 0.9);
+  --card-strong: rgba(220, 235, 244, 0.96);
+
+  /* Sky-ink text */
+  --text: #143149;
+  --muted: #4f748a;
+
+  /* Ocean teal accents */
+  --accent: #1b6b80;
+  --accent-2: #238a9e;
+  --accent-contrast: var(--accent);
+
+  /* Soft blue borders */
+  --stroke: rgba(86, 127, 154, 0.12);
+  --compare-row-divider: rgba(86, 127, 154, 0.12);
+
+  /* Soft ocean shadows */
+  --shadow:
+    0 1px 3px rgba(12, 45, 72, 0.04),
+    0 4px 12px rgba(12, 45, 72, 0.06);
+
+  --shadow-card:
+    0 1px 2px rgba(12, 45, 72, 0.03),
+    0 4px 16px rgba(12, 45, 72, 0.05);
+
+  --shadow-elevated:
+    0 2px 8px rgba(12, 45, 72, 0.06),
+    0 12px 32px rgba(12, 45, 72, 0.1),
+    0 32px 64px rgba(12, 45, 72, 0.08);
+
+  --gradient-primary: linear-gradient(135deg, #1b6b80 0%, #238a9e 100%);
+
+  --reader-card-bg: rgba(208, 228, 240, 0.9);
+  --reader-card-bg-hover: rgba(200, 222, 236, 0.96);
+  --reader-card-bg-focused: rgba(215, 234, 244, 0.95);
+  --reader-card-bg-active: rgba(218, 236, 245, 0.96);
+  --reader-card-shadow-hover: 0 2px 10px rgba(12, 45, 72, 0.04);
+  --reader-action-bg: rgba(255, 255, 255, 0.32);
+  --reader-action-bg-hover: rgba(232, 243, 249, 0.88);
+  --reader-action-bg-active: rgba(220, 235, 244, 0.96);
+  --reader-action-text: var(--accent);
+  --reader-action-primary-bg: rgba(220, 235, 244, 0.92);
+  --reader-action-primary-bg-hover: rgba(208, 228, 240, 0.98);
+  --reader-action-primary-text: var(--accent);
+  --reader-action-danger-text: #b04040;
+  --reader-action-danger-bg-hover: rgba(176, 64, 64, 0.08);
+  --reader-control-stop-bg: rgba(255, 255, 255, 0.34);
+  --reader-control-stop-bg-hover: rgba(220, 235, 244, 0.88);
+  --reader-control-stop-text: var(--accent);
+  --reader-control-play-bg: var(--gradient-primary);
+  --reader-control-play-bg-hover: linear-gradient(135deg, #207a91 0%, #2a9aaf 100%);
+  --reader-control-play-text: #dbeaf2;
+  --control-danger-bg: rgba(176, 64, 64, 0.08);
+  --control-danger-bg-hover: rgba(176, 64, 64, 0.12);
+  --control-danger-text: #b04040;
+  --field-bg: rgba(255, 255, 255, 0.34);
+  --field-bg-hover: rgba(220, 235, 244, 0.88);
+  --field-bg-focus: rgba(220, 235, 244, 0.96);
+  --focus-ring: 0 0 0 2px rgba(27, 107, 128, 0.16);
+  --segmented-active-bg: linear-gradient(135deg, rgba(27, 107, 128, 0.16), rgba(35, 138, 158, 0.1));
+  --segmented-active-text: var(--accent);
+  --share-primary-bg: var(--gradient-primary);
+  --share-primary-bg-hover: linear-gradient(135deg, #207a91 0%, #2a9aaf 100%);
+  --share-primary-text: #dbeaf2;
+  --share-primary-shadow: 0 6px 18px rgba(12, 45, 72, 0.12);
+  --share-primary-shadow-hover: 0 8px 22px rgba(12, 45, 72, 0.16);
+
+  --study-ayah-card-bg: rgba(208, 228, 240, 0.9);
+  --study-ayah-card-bg-hover: rgba(200, 222, 236, 0.96);
+  --study-ayah-card-shadow: 0 1px 6px rgba(12, 45, 72, 0.03);
+  --study-ayah-card-playing-bg: rgba(216, 233, 243, 0.98);
+  --study-ayah-card-marked-bg: rgba(198, 220, 235, 0.98);
+  --study-ayah-card-marked-hover-bg: rgba(192, 216, 232, 1);
+  --study-ayah-card-marked-playing-bg: rgba(206, 225, 238, 1);
+  --study-ayah-card-marked-shadow: 0 1px 6px rgba(86, 127, 154, 0.05);
+  --study-word-hover-bg: rgba(20, 78, 95, 0.08);
+  --study-word-active-bg: rgba(198, 223, 234, 0.88);
+  --study-word-active-text: var(--text);
+  --study-rail-bg: rgba(219, 234, 242, 0.94);
+  --study-rail-border: rgba(86, 127, 154, 0.1);
+  --study-rail-shadow: 0 6px 18px rgba(12, 45, 72, 0.07);
+  --study-rail-button-bg: rgba(255, 255, 255, 0.34);
+  --study-rail-button-bg-hover: rgba(220, 235, 244, 0.88);
+  --study-rail-button-active-bg: var(--gradient-primary);
+  --study-rail-button-active-text: #dbeaf2;
+  --study-primary-control-bg: var(--gradient-primary);
+  --study-primary-control-bg-hover: linear-gradient(135deg, #207a91 0%, #2a9aaf 100%);
+  --study-primary-control-text: #dbeaf2;
+  --search-highlight-text: #0e8a5f;
+  --quick-panel-bg: rgba(219, 234, 242, 0.97);
+  --quick-panel-border: rgba(86, 127, 154, 0.1);
+  --quick-panel-shadow: 0 10px 24px rgba(12, 45, 72, 0.08);
+}
+
+/* Body — Sky blue gradient */
+:root[data-theme="sky"] body {
+  background: linear-gradient(180deg, #b8d4e4 0%, #b3d1e0 52%, #b3d1e0 100%);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] html {
+  background-color: #b8d4e4;
+}
+
+/* Ambient glow — Soft teal wash */
+:root[data-theme="sky"] body::before {
+  background:
+    radial-gradient(ellipse 92% 56% at 50% -12%, rgba(255, 255, 255, 0.14), transparent 70%),
+    radial-gradient(ellipse 74% 34% at 100% 45%, rgba(126, 164, 187, 0.04), transparent 78%);
+}
+
+/* Logo — Sky elevated */
+:root[data-theme="sky"] .logo-mark {
+  background:
+    radial-gradient(120% 120% at 20% 10%, rgba(255, 255, 255, 0.8), transparent 60%),
+    linear-gradient(180deg, #dbeaf2 0%, #b3d1e0 100%);
+  border-color: rgba(86, 127, 154, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(20, 78, 95, 0.06),
+    0 4px 16px rgba(12, 45, 72, 0.08);
+}
+
+:root[data-theme="sky"] .logo:hover .logo-mark {
+  box-shadow:
+    0 0 0 1px rgba(20, 78, 95, 0.1),
+    0 6px 20px rgba(12, 45, 72, 0.12);
+}
+
+:root[data-theme="sky"] .logo-highlight {
+  color: var(--accent);
+}
+
+/* Header buttons */
+:root[data-theme="sky"] .header-icon-btn {
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .header-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Topbar */
+:root[data-theme="sky"] .topbar {
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Search & Inputs */
+:root[data-theme="sky"] .surah-search-wrapper .search,
+:root[data-theme="sky"] .mobile-input,
+:root[data-theme="sky"] .mobile-select,
+:root[data-theme="sky"] .settings-select {
+  background: rgba(255, 255, 255, 0.42);
+  color: var(--text);
+  border: none;
+  transition: all 0.2s ease;
+}
+
+:root[data-theme="sky"] .surah-search-wrapper .search:focus,
+:root[data-theme="sky"] .mobile-input:focus {
+  background: #dbeaf2;
+  border: none;
+  box-shadow: 0 2px 8px rgba(12, 45, 72, 0.06);
+}
+
+:root[data-theme="sky"] .surah-search-wrapper .search::placeholder,
+:root[data-theme="sky"] .mobile-input::placeholder {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .settings-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234f748a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+:root[data-theme="sky"] .mobile-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234f748a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* Sidebar / surah panel — seamless blend */
+:root[data-theme="sky"] .surah-panel {
+  background: transparent;
+  border-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+:root[data-theme="sky"] .surah-list {
+  gap: 2px;
+}
+
+:root[data-theme="sky"] .surah-item {
+  background: transparent;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease;
+}
+
+:root[data-theme="sky"] .surah-item:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: none !important;
+  transform: none;
+}
+
+:root[data-theme="sky"] .surah-item.active {
+  background: rgba(217, 232, 241, 0.96);
+  border: none !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="sky"] .surah-item.active .surah-english {
+  color: #0a2540;
+  font-weight: 600;
+}
+
+:root[data-theme="sky"] .surah-item.active .surah-translation {
+  color: rgba(20, 61, 86, 0.8);
+}
+
+:root[data-theme="sky"] .surah-item.active .surah-arabic {
+  color: rgba(20, 61, 86, 0.92);
+}
+
+:root[data-theme="sky"] .surah-number {
+  background: rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  color: rgba(23, 53, 77, 0.76);
+}
+
+:root[data-theme="sky"] .surah-item.active .surah-number {
+  background: rgba(255, 255, 255, 0.52);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .surah-arabic {
+  color: #547a92;
+}
+
+/* Typography — translation text darker for readability */
+:root[data-theme="sky"] .surah-translation,
+:root[data-theme="sky"] .study-sub,
+:root[data-theme="sky"] .plan-range,
+:root[data-theme="sky"] .ayah-translation,
+:root[data-theme="sky"] .compare-text {
+  color: rgba(12, 45, 72, 0.84);
+}
+
+:root[data-theme="sky"] .surah-translation,
+:root[data-theme="sky"] .study-sub {
+  font-size: 0.74rem;
+}
+
+:root[data-theme="sky"] .meta {
+  color: rgba(20, 61, 86, 0.76);
+  font-size: 0.84rem;
+}
+
+:root[data-theme="sky"] .study-section h3,
+:root[data-theme="sky"] .field,
+:root[data-theme="sky"] .label {
+  color: rgba(20, 61, 86, 0.7);
+}
+
+:root[data-theme="sky"] .field {
+  letter-spacing: 0.065em;
+}
+
+:root[data-theme="sky"] .label {
+  letter-spacing: 0.09em;
+}
+
+/* Ayah Cards — Ocean teal surfaces */
+:root[data-theme="sky"] .ayah-card {
+  background: var(--reader-card-bg);
+  border: none;
+  box-shadow: none;
+  transition: background 0.2s ease;
+}
+
+:root[data-theme="sky"] .ayah-card:hover {
+  background: var(--reader-card-bg-hover);
+  box-shadow: var(--reader-card-shadow-hover);
+}
+
+:root[data-theme="sky"] .ayah-card.focused {
+  background: var(--reader-card-bg-focused);
+}
+
+:root[data-theme="sky"] .ayah-card.active {
+  background: var(--reader-card-bg-active);
+  border-color: rgba(27, 107, 128, 0.08);
+}
+
+:root[data-theme="sky"] .ayah-number-badge {
+  background: rgba(27, 107, 128, 0.1);
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .audio-placeholder {
+  background: rgba(20, 78, 95, 0.05);
+}
+
+/* Translation Toggle */
+:root[data-theme="sky"] .translation-toggle button {
+  background: rgba(20, 78, 95, 0.07);
+  color: var(--text);
+  transition: all 0.2s ease;
+}
+
+:root[data-theme="sky"] .translation-toggle button:hover {
+  background: rgba(20, 78, 95, 0.12);
+}
+
+:root[data-theme="sky"] .translation-toggle button.active {
+  background: rgba(20, 78, 95, 0.16);
+  color: var(--accent);
+}
+
+/* Action Buttons — Teal ghost */
+:root[data-theme="sky"] .action-btn {
+  background: var(--reader-action-bg);
+  border: 1px solid transparent;
+  color: var(--reader-action-text);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+:root[data-theme="sky"] .action-btn:hover {
+  background: var(--reader-action-bg-hover);
+  transform: none;
+  box-shadow: none;
+}
+
+:root[data-theme="sky"] .action-btn:active {
+  background: var(--reader-action-bg-active);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+:root[data-theme="sky"] .action-btn.saved,
+:root[data-theme="sky"] .action-btn--primary {
+  background: var(--reader-action-primary-bg);
+  color: var(--reader-action-primary-text);
+}
+
+:root[data-theme="sky"] .action-btn--primary:hover {
+  background: var(--reader-action-primary-bg-hover);
+}
+
+:root[data-theme="sky"] .action-btn--danger {
+  color: var(--reader-action-danger-text);
+}
+
+:root[data-theme="sky"] .action-btn--danger:hover {
+  background: var(--reader-action-danger-bg-hover);
+}
+
+/* Quick controls — flat */
+:root[data-theme="sky"] .quick-controls-row .action-btn.stop-btn,
+:root[data-theme="sky"] .quick-controls-row .action-btn.play-btn {
+  box-shadow: none;
+  transform: none;
+}
+
+:root[data-theme="sky"] .quick-controls-row .action-btn.stop-btn:hover,
+:root[data-theme="sky"] .quick-controls-row .action-btn.play-btn:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+
+/* Settings */
+:root[data-theme="sky"] .settings-backdrop {
+  background: rgba(12, 45, 72, 0.3);
+}
+
+:root[data-theme="sky"] .settings-modal {
+  background: var(--bg-light) !important;
+  border: 1px solid rgba(86, 127, 154, 0.1) !important;
+  box-shadow: 0 12px 28px rgba(12, 45, 72, 0.1);
+}
+
+:root[data-theme="sky"] .settings-title {
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .settings-close-btn {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .settings-tabs {
+  border-bottom-color: rgba(20, 78, 95, 0.1);
+}
+
+:root[data-theme="sky"] .tab-label {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .tab-indicator {
+  background: var(--accent);
+}
+
+:root[data-theme="sky"] .section-title {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .settings-select {
+  background: var(--bg-mid);
+  border-color: rgba(86, 127, 154, 0.1);
+}
+
+:root[data-theme="sky"] .settings-input {
+  background: var(--bg-mid);
+  border-color: rgba(86, 127, 154, 0.1);
+}
+
+:root[data-theme="sky"] .settings-modal-container {
+  background: #dbeaf2;
+  border-color: rgba(86, 127, 154, 0.08);
+}
+
+:root[data-theme="sky"] .mobile-settings-overlay {
+  background: rgba(12, 45, 72, 0.4);
+}
+
+:root[data-theme="sky"] .settings-tab-btn {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .settings-tab-btn.active {
+  color: var(--text);
+  background: rgba(20, 78, 95, 0.08);
+}
+
+:root[data-theme="sky"] .settings-group {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(86, 127, 154, 0.08);
+}
+
+:root[data-theme="sky"] .settings-hint {
+  color: var(--muted);
+}
+
+/* Translation Chips */
+:root[data-theme="sky"] .translation-chip:hover {
+  background: rgba(20, 78, 95, 0.05);
+}
+
+:root[data-theme="sky"] .translation-chip.selected {
+  background: rgba(220, 235, 244, 0.9);
+}
+
+:root[data-theme="sky"] .chip-check {
+  background: var(--accent);
+}
+
+
+/* Reciter cards */
+:root[data-theme="sky"] .reciter-card {
+  background: transparent;
+}
+
+:root[data-theme="sky"] .reciter-card:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+:root[data-theme="sky"] .reciter-card.selected {
+  background: rgba(220, 235, 244, 0.88);
+}
+
+:root[data-theme="sky"] .reciter-avatar {
+  background: var(--bg-mid);
+}
+
+/* Note & Compare panels */
+:root[data-theme="sky"] .note-panel,
+:root[data-theme="sky"] .compare-panel {
+  background: rgba(219, 234, 242, 0.96);
+  border: 1px solid rgba(86, 127, 154, 0.1);
+  box-shadow: 0 10px 24px rgba(12, 45, 72, 0.08);
+}
+
+:root[data-theme="sky"] .compare-block {
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(86, 127, 154, 0.08);
+}
+
+:root[data-theme="sky"] .note-body textarea {
+  background: rgba(20, 78, 95, 0.05);
+  border: 1px solid rgba(20, 78, 95, 0.1);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .note-body textarea:focus {
+  background: rgba(20, 78, 95, 0.07);
+  border-color: rgba(20, 78, 95, 0.22);
+}
+
+:root[data-theme="sky"] .close-btn {
+  background: rgba(20, 78, 95, 0.08);
+  color: var(--text);
+}
+
+/* Study Mode */
+:root[data-theme="sky"] .study-mode-container {
+  background: linear-gradient(180deg, #b8d4e4 0%, #b3d1e0 100%);
+}
+
+:root[data-theme="sky"] .study-ambient-bg {
+  background:
+    radial-gradient(ellipse 94% 46% at 50% -22%, rgba(255, 255, 255, 0.12), transparent 62%),
+    radial-gradient(ellipse 56% 36% at 100% 100%, rgba(126, 164, 187, 0.04), transparent 78%);
+}
+
+:root[data-theme="sky"] .study-header {
+  background: rgba(219, 234, 242, 0.9);
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:root[data-theme="sky"] .study-back-btn {
+  background: rgba(20, 78, 95, 0.07);
+  border: none;
+  color: var(--muted);
+  transition: background 0.15s ease;
+}
+
+:root[data-theme="sky"] .study-back-btn:hover {
+  background: rgba(20, 78, 95, 0.12);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .study-ayah-card {
+  background: var(--study-ayah-card-bg);
+  border: none;
+  box-shadow: var(--study-ayah-card-shadow);
+}
+
+:root[data-theme="sky"] .study-ayah-card:hover {
+  background: var(--study-ayah-card-bg-hover);
+}
+
+:root[data-theme="sky"] .study-ayah-card.playing {
+  background: var(--study-ayah-card-playing-bg);
+}
+
+:root[data-theme="sky"] .study-ayah-card.marked {
+  background: var(--study-ayah-card-marked-bg);
+  box-shadow: var(--study-ayah-card-marked-shadow);
+}
+
+:root[data-theme="sky"] .study-ayah-card.marked:hover {
+  background: var(--study-ayah-card-marked-hover-bg);
+}
+
+:root[data-theme="sky"] .study-ayah-card.marked.playing {
+  background: var(--study-ayah-card-marked-playing-bg);
+}
+
+:root[data-theme="sky"] .study-ayah-number {
+  background: rgba(255, 255, 255, 0.48);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .study-ayah-word-trigger:hover {
+  background: var(--study-word-hover-bg);
+}
+
+:root[data-theme="sky"] .study-ayah-word-trigger.active {
+  background: var(--study-word-active-bg);
+  color: var(--study-word-active-text);
+}
+
+/* Study rail */
+:root[data-theme="sky"] .study-rail {
+  background: var(--study-rail-bg);
+  border: 1px solid var(--study-rail-border);
+  box-shadow: var(--study-rail-shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:root[data-theme="sky"] .study-rail-btn {
+  background: var(--study-rail-button-bg);
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .study-rail-btn:hover {
+  background: var(--study-rail-button-bg-hover);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .study-rail-btn.active {
+  background: var(--study-rail-button-active-bg);
+  color: var(--study-rail-button-active-text);
+  box-shadow: none;
+}
+
+/* Quick panel */
+:root[data-theme="sky"] .quick-panel {
+  background: var(--quick-panel-bg);
+  border: 1px solid var(--quick-panel-border);
+  box-shadow: var(--quick-panel-shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:root[data-theme="sky"] .study-card,
+:root[data-theme="sky"] .study-settings-group,
+:root[data-theme="sky"] .search-results li {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(86, 127, 154, 0.08);
+}
+
+:root[data-theme="sky"] .study-card h4,
+:root[data-theme="sky"] .study-settings-title {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .tafsir-card.study-card {
+  background: transparent;
+  border: none;
+}
+
+/* Quick item actions */
+:root[data-theme="sky"] .quick-item-action.save:disabled {
+  background: rgba(20, 78, 95, 0.08);
+  color: rgba(27, 93, 110, 0.5);
+}
+
+:root[data-theme="sky"] .quick-item-action.danger {
+  background: rgba(176, 64, 64, 0.08);
+  color: #9b493d;
+}
+
+:root[data-theme="sky"] .quick-item-action.danger:hover {
+  background: rgba(176, 64, 64, 0.14);
+}
+
+/* Quick panel — Study tab */
+:root[data-theme="sky"] .qp-a-today  { color: #0e8a5f; }
+:root[data-theme="sky"] .qp-a-week   { color: #1d6fbf; }
+:root[data-theme="sky"] .qp-a-streak { color: #c8731e; }
+:root[data-theme="sky"] .qp-a-session { color: #6a4fb8; }
+:root[data-theme="sky"] .qp-streak-warm .qp-a-streak { color: #c8731e; }
+:root[data-theme="sky"] .qp-streak-fire .qp-a-streak { color: #b25216; }
+
+:root[data-theme="sky"] .qp-a-label {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .qp-a-stats {
+  border-bottom-color: rgba(86, 127, 154, 0.12);
+}
+
+:root[data-theme="sky"] .qp-group {
+  border-bottom-color: rgba(86, 127, 154, 0.1);
+}
+
+:root[data-theme="sky"] .qp-bar-track {
+  background: rgba(86, 127, 154, 0.14);
+}
+
+:root[data-theme="sky"] .qp-bar-fill {
+  background: linear-gradient(180deg, #1d6fbf 0%, rgba(29, 111, 191, 0.55) 100%);
+}
+
+:root[data-theme="sky"] .qp-bar-col.today .qp-bar-fill {
+  background: linear-gradient(180deg, #c8731e 0%, rgba(200, 115, 30, 0.6) 100%);
+  box-shadow: none;
+}
+
+:root[data-theme="sky"] .qp-bar-col.today .qp-bar-value,
+:root[data-theme="sky"] .qp-bar-col.today .qp-bar-label {
+  color: #c8731e;
+}
+
+:root[data-theme="sky"] .qp-bar-label {
+  color: rgba(20, 49, 73, 0.4);
+}
+
+:root[data-theme="sky"] .qp-bar-value {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .qp-goal-bar {
+  background: rgba(86, 127, 154, 0.12);
+}
+
+:root[data-theme="sky"] .qp-goal-bar-fill {
+  background: linear-gradient(90deg, #1b6b80, #238a9e);
+  box-shadow: none;
+}
+
+:root[data-theme="sky"] .qp-stepper {
+  background: rgba(86, 127, 154, 0.1);
+}
+
+:root[data-theme="sky"] .qp-stepper-btn {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .qp-stepper-btn:hover {
+  background: rgba(27, 107, 128, 0.12);
+  color: var(--accent);
+}
+
+/* Surah Progress rows — deeper, saturated green so rings and badges
+   don't wash out against the light sky background. */
+:root[data-theme="sky"] .qp-surah-row {
+  border-bottom-color: rgba(86, 127, 154, 0.1);
+}
+
+:root[data-theme="sky"] .qp-surah-row:hover {
+  background: rgba(27, 107, 128, 0.06);
+}
+
+:root[data-theme="sky"] .qp-surah-name {
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .qp-surah-detail {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .qp-ring-bg {
+  stroke: rgba(86, 127, 154, 0.22);
+}
+
+:root[data-theme="sky"] .qp-ring-fill {
+  stroke: #0e8a5f;
+}
+
+:root[data-theme="sky"] .qp-surah-pct {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .qp-surah-pct.done {
+  color: #0e8a5f;
+  background: rgba(14, 138, 95, 0.12);
+}
+
+:root[data-theme="sky"] .qp-surah-mem-pct {
+  color: #0e8a5f;
+}
+
+:root[data-theme="sky"] .qp-surah-mem-pct.done {
+  color: #0e8a5f;
+  background: rgba(14, 138, 95, 0.14);
+}
+
+:root[data-theme="sky"] .qp-surah-hifz-detail {
+  color: #0e8a5f;
+}
+
+/* Lexicon modal */
+:root[data-theme="sky"] .study-lexicon-backdrop {
+  background: rgba(12, 45, 72, 0.2);
+}
+
+:root[data-theme="sky"] .study-lexicon-modal {
+  background: rgba(198, 223, 234, 0.98);
+  border: none;
+  box-shadow: 0 14px 32px rgba(12, 45, 72, 0.1);
+}
+
+:root[data-theme="sky"] .study-lexicon-header {
+  border-bottom: 1px solid rgba(20, 78, 95, 0.12);
+}
+
+:root[data-theme="sky"] .study-lexicon-close {
+  background: rgba(20, 78, 95, 0.08);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .study-lexicon-word {
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .study-lexicon-root-focus {
+  background: rgba(20, 78, 95, 0.07);
+  border-color: rgba(20, 78, 95, 0.15);
+}
+
+:root[data-theme="sky"] .study-lexicon-root-focus.is-unavailable {
+  background: rgba(20, 78, 95, 0.04);
+  border-color: rgba(20, 78, 95, 0.1);
+}
+
+:root[data-theme="sky"] .study-lexicon-root-heading {
+  color: rgba(27, 93, 110, 0.75);
+}
+
+:root[data-theme="sky"] .study-lexicon-meta-item,
+:root[data-theme="sky"] .study-lexicon-summary-item,
+:root[data-theme="sky"] .study-lexicon-guide-item {
+  background: rgba(20, 78, 95, 0.06);
+}
+
+:root[data-theme="sky"] .study-lexicon-guide-toggle {
+  background: rgba(20, 78, 95, 0.08);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .study-lexicon-guide-popover {
+  background: rgba(198, 223, 234, 0.99);
+  border-color: rgba(20, 78, 95, 0.12);
+  box-shadow: 0 12px 24px rgba(12, 45, 72, 0.1);
+}
+
+:root[data-theme="sky"] .study-lexicon-guide-code {
+  background: rgba(20, 78, 95, 0.12);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .study-lexicon-guide-meaning {
+  color: rgba(12, 45, 72, 0.8);
+}
+
+:root[data-theme="sky"] .study-lane-open-btn,
+:root[data-theme="sky"] .study-root-link,
+:root[data-theme="sky"] .study-root-insight-btn,
+:root[data-theme="sky"] .study-word-audio-icon,
+:root[data-theme="sky"] .study-word-audio-btn {
+  background: rgba(20, 78, 95, 0.12);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .study-lexicon-chip,
+:root[data-theme="sky"] .study-lexicon-ref {
+  background: rgba(20, 78, 95, 0.08);
+}
+
+:root[data-theme="sky"] .study-lexicon-list li {
+  color: rgba(12, 45, 72, 0.88);
+}
+
+/* Toggle switch */
+:root[data-theme="sky"] .toggle-switch {
+  background: rgba(20, 78, 95, 0.18);
+}
+
+:root[data-theme="sky"] .toggle-switch.active {
+  background: var(--accent);
+}
+
+/* Memorize modal */
+:root[data-theme="sky"] .memorize-modal-backdrop {
+  background: rgba(174, 204, 216, 0.7);
+}
+
+:root[data-theme="sky"] .memorize-modal {
+  background: rgba(198, 223, 234, 0.98);
+  border: 1px solid rgba(20, 78, 95, 0.12);
+  box-shadow: var(--shadow-elevated);
+}
+
+:root[data-theme="sky"] .memorize-close {
+  background: rgba(20, 78, 95, 0.08);
+}
+
+:root[data-theme="sky"] .memorize-segmented {
+  background: rgba(20, 78, 95, 0.08);
+}
+
+:root[data-theme="sky"] .memorize-segment {
+  color: var(--muted);
+}
+
+:root[data-theme="sky"] .memorize-segment.active {
+  background: rgba(20, 78, 95, 0.16);
+  color: var(--text);
+  box-shadow: none;
+}
+
+:root[data-theme="sky"] .memorize-range-grid input,
+:root[data-theme="sky"] .memorize-range-summary,
+:root[data-theme="sky"] .memorize-stepper {
+  background: rgba(20, 78, 95, 0.08);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .memorize-stepper button {
+  background: rgba(20, 78, 95, 0.12);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .memorize-ghost {
+  background: rgba(20, 78, 95, 0.08);
+  color: var(--text);
+}
+
+:root[data-theme="sky"] .memorize-primary {
+  background: var(--study-primary-control-bg);
+  color: var(--study-primary-control-text);
+}
+
+/* Last read card */
+:root[data-theme="sky"] .last-read-card {
+  background: rgba(214, 231, 240, 0.88);
+  border: none;
+  box-shadow: 0 4px 14px rgba(20, 78, 95, 0.05);
+}
+
+:root[data-theme="sky"] .last-read-icon {
+  background: rgba(20, 78, 95, 0.1);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .last-read-label {
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+:root[data-theme="sky"] .last-read-time {
+  color: var(--muted);
+}
+
+/* Play button states */
+:root[data-theme="sky"] .action-icon-btn.play-icon.playing {
+  background: rgba(20, 78, 95, 0.15) !important;
+  color: var(--accent) !important;
+}
+
+:root[data-theme="sky"] .action-icon-btn.hifz-icon.memorized {
+  background: rgba(20, 78, 95, 0.12);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .study-ayah-card.memorized {
+  border-left-color: rgba(27, 93, 110, 0.4);
+}
+
+:root[data-theme="sky"] .hifz-action-btn {
+  border-color: rgba(20, 78, 95, 0.2);
+  background: rgba(20, 78, 95, 0.08);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .hifz-action-btn:hover {
+  background: rgba(20, 78, 95, 0.14);
+}
+
+/* Back to top */
+:root[data-theme="sky"] .back-to-top {
+  background: rgba(198, 223, 234, 0.9);
+  border: none;
+  box-shadow: 0 4px 16px rgba(12, 45, 72, 0.08);
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .back-to-top:hover {
+  background: #c6dfea;
+  box-shadow: 0 6px 20px rgba(12, 45, 72, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Ghost icon buttons */
+:root[data-theme="sky"] .ayah-action,
+:root[data-theme="sky"] .study-ayah-action,
+:root[data-theme="sky"] .action-icon-btn,
+:root[data-theme="sky"] .icon-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--muted) !important;
+  transition: all 0.2s ease !important;
+  transform: none !important;
+}
+
+:root[data-theme="sky"] .ayah-action:hover,
+:root[data-theme="sky"] .study-ayah-action:hover,
+:root[data-theme="sky"] .action-icon-btn:hover,
+:root[data-theme="sky"] .icon-btn:hover {
+  background: rgba(20, 78, 95, 0.08) !important;
+  color: var(--accent) !important;
+  transform: translateY(-1px) !important;
+}
+
+:root[data-theme="sky"] .ayah-action:active,
+:root[data-theme="sky"] .study-ayah-action:active,
+:root[data-theme="sky"] .action-icon-btn:active,
+:root[data-theme="sky"] .icon-btn:active {
+  background: rgba(20, 78, 95, 0.12) !important;
+  transform: translateY(0) !important;
+  transition: none !important;
+}
+
+:root[data-theme="sky"] .ayah-action svg,
+:root[data-theme="sky"] .study-ayah-action svg,
+:root[data-theme="sky"] .action-icon-btn svg {
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+/* Chip and card selected states */
+:root[data-theme="sky"] .chip.selected,
+:root[data-theme="sky"] .chip.active,
+:root[data-theme="sky"] [class*="chip"].selected {
+  background: rgba(20, 78, 95, 0.1) !important;
+  border-color: rgba(20, 78, 95, 0.25) !important;
+}
+
+/* Playing states */
+:root[data-theme="sky"] .study-ayah-card.playing,
+:root[data-theme="sky"] .ayah-card.playing {
+  background: rgba(218, 236, 245, 0.96) !important;
+  border-color: rgba(27, 107, 128, 0.08) !important;
+}
+
+/* Segmented control */
+:root[data-theme="sky"] .segmented-btn.active,
+:root[data-theme="sky"] .segment-btn.active {
+  background: rgba(20, 78, 95, 0.12) !important;
+}
+
+
+/* Badge and tag */
+:root[data-theme="sky"] .badge,
+:root[data-theme="sky"] .tag {
+  background: rgba(20, 78, 95, 0.1);
+  color: var(--accent);
+}
+
+/* Tap states */
+:root[data-theme="sky"] button,
+:root[data-theme="sky"] [role="button"],
+:root[data-theme="sky"] .btn,
+:root[data-theme="sky"] a.btn,
+:root[data-theme="sky"] .surah-item,
+:root[data-theme="sky"] .ayah-card,
+:root[data-theme="sky"] .translation-chip,
+:root[data-theme="sky"] .reciter-card,
+:root[data-theme="sky"] .ayah-action {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root[data-theme="sky"] .surah-item:active {
+  background: rgba(208, 228, 240, 0.94);
+  transition: background 0.15s ease-out;
+}
+
+:root[data-theme="sky"] .ayah-card:active,
+:root[data-theme="sky"] .translation-chip:active,
+:root[data-theme="sky"] .reciter-card:active,
+:root[data-theme="sky"] .study-ayah-card:active {
+  background: rgba(200, 222, 236, 0.94);
+  transition: background-color 0.15s ease-out;
+}
+
+/* Override active states */
+:root[data-theme="sky"] .surah-item.active {
+  background: rgba(217, 232, 241, 0.96) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Focus rings */
+:root[data-theme="sky"] *:focus-visible {
+  outline: none;
+}
+
+:root[data-theme="sky"] .search:focus,
+:root[data-theme="sky"] .surah-search-wrapper input:focus,
+:root[data-theme="sky"] input:focus,
+:root[data-theme="sky"] select:focus,
+:root[data-theme="sky"] textarea:focus {
+  box-shadow: none !important;
+  border-color: rgba(20, 78, 95, 0.22) !important;
+  background: #c6dfea !important;
+}
+
+:root[data-theme="sky"] .ayah-card:focus,
+:root[data-theme="sky"] .ayah-card:active,
+:root[data-theme="sky"] .ayah-card.focused {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: rgba(215, 234, 244, 0.95) !important;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  :root[data-theme="sky"] .ayah-card:active,
+  :root[data-theme="sky"] .ayah-card:focus {
+    background: rgba(215, 234, 244, 0.95) !important;
+    box-shadow: none !important;
+    transition: none !important;
+  }
+}
+
+:root[data-theme="sky"] .has-focus-ring:focus,
+:root[data-theme="sky"] [tabindex]:focus {
+  box-shadow: 0 0 0 2px rgba(20, 78, 95, 0.2);
+}
+
+/* Form elements */
+:root[data-theme="sky"] input[type="date"] {
+  color-scheme: light;
+}
+
+:root[data-theme="sky"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+  opacity: 0.6;
+}
+
+/* Audio bar */
+:root[data-theme="sky"] .audio-bar.playing {
+  border-color: var(--accent-2) !important;
+}
+
+:root[data-theme="sky"] .audio-bar.playing::before {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent)) !important;
+}
+
+/* Prayer panel */
+:root[data-theme="sky"] .prayer-floating-backdrop {
+  background: rgba(12, 45, 72, 0.12);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+:root[data-theme="sky"] .prayer-floating-panel {
+  border-color: rgba(20, 78, 95, 0.14);
+  background: rgba(206, 228, 239, 0.99);
+  box-shadow:
+    0 16px 42px -12px rgba(12, 45, 72, 0.1),
+    0 0 0 0.5px rgba(20, 78, 95, 0.08) inset;
+}
+
+:root[data-theme="sky"] .prayer-floating-title {
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-floating-subtitle {
+  color: #40728a;
+}
+
+:root[data-theme="sky"] .prayer-floating-close {
+  background: rgba(20, 78, 95, 0.07);
+  color: #40728a;
+}
+
+:root[data-theme="sky"] .prayer-floating-close:hover {
+  background: rgba(20, 78, 95, 0.12);
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-hero-card {
+  background: rgba(218, 235, 243, 0.88);
+  border-color: rgba(20, 78, 95, 0.1);
+}
+
+:root[data-theme="sky"] .prayer-hero-card::before {
+  background: radial-gradient(ellipse at 30% 20%,
+      rgba(20, 78, 95, 0.05) 0%,
+      transparent 70%);
+}
+
+:root[data-theme="sky"] .prayer-hero-label {
+  color: rgba(27, 93, 110, 0.6);
+}
+
+:root[data-theme="sky"] .prayer-hero-name {
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-hero-time {
+  color: rgba(27, 93, 110, 0.8);
+}
+
+:root[data-theme="sky"] .prayer-section-title {
+  color: rgba(27, 93, 110, 0.55);
+}
+
+:root[data-theme="sky"] .prayer-schedule-card {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(20, 78, 95, 0.08);
+}
+
+:root[data-theme="sky"] .prayer-schedule-row {
+  border-bottom-color: rgba(20, 78, 95, 0.06);
+}
+
+:root[data-theme="sky"] .prayer-schedule-row.active {
+  background: rgba(210, 229, 239, 0.82);
+}
+
+:root[data-theme="sky"] .prayer-schedule-row.active .prayer-schedule-name,
+:root[data-theme="sky"] .prayer-schedule-row.active .prayer-schedule-time {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .prayer-schedule-name {
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-schedule-time {
+  color: #40728a;
+}
+
+:root[data-theme="sky"] .prayer-settings-card {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(20, 78, 95, 0.08);
+}
+
+:root[data-theme="sky"] .prayer-settings-divider {
+  background: rgba(20, 78, 95, 0.06);
+}
+
+:root[data-theme="sky"] .prayer-settings-label {
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-settings-select,
+:root[data-theme="sky"] .prayer-settings-input {
+  color: #40728a;
+}
+
+:root[data-theme="sky"] .prayer-settings-input:focus {
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-custom-trigger {
+  color: #40728a;
+}
+
+:root[data-theme="sky"] .prayer-custom-trigger:hover,
+:root[data-theme="sky"] .prayer-custom-trigger.open {
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-custom-chevron {
+  color: #40728a;
+}
+
+:root[data-theme="sky"] .prayer-custom-dropdown {
+  border-color: rgba(20, 78, 95, 0.12);
+  background: rgba(216, 236, 245, 0.99);
+  box-shadow:
+    0 12px 30px -8px rgba(12, 45, 72, 0.1),
+    0 0 0 0.5px rgba(20, 78, 95, 0.08) inset;
+}
+
+:root[data-theme="sky"] .prayer-custom-search {
+  border-color: rgba(20, 78, 95, 0.1);
+  background: rgba(20, 78, 95, 0.04);
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-custom-search:focus {
+  border-color: rgba(20, 78, 95, 0.25);
+  background: rgba(20, 78, 95, 0.06);
+}
+
+:root[data-theme="sky"] .prayer-custom-option {
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .prayer-custom-option:hover,
+:root[data-theme="sky"] .prayer-custom-option.highlighted {
+  background: rgba(20, 78, 95, 0.06);
+}
+
+:root[data-theme="sky"] .prayer-custom-option.selected {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .prayer-custom-option.selected svg {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .prayer-custom-options::-webkit-scrollbar-thumb {
+  background: rgba(20, 78, 95, 0.12);
+}
+
+:root[data-theme="sky"] .prayer-city-selected-pill {
+  border-color: rgba(20, 78, 95, 0.12);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+:root[data-theme="sky"] .prayer-city-row .prayer-city-input:focus {
+  background: rgba(20, 78, 95, 0.04);
+}
+
+:root[data-theme="sky"] .prayer-city-options-status,
+:root[data-theme="sky"] .prayer-city-options {
+  border-color: rgba(20, 78, 95, 0.1);
+  background: rgba(220, 240, 248, 0.96);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 10px 24px rgba(12, 45, 72, 0.08);
+}
+
+:root[data-theme="sky"] .prayer-city-option:hover {
+  background: rgba(20, 78, 95, 0.06);
+}
+
+:root[data-theme="sky"] .prayer-city-option.active {
+  background: rgba(20, 78, 95, 0.1);
+}
+
+:root[data-theme="sky"] .prayer-city-option.active .prayer-city-option-main {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .prayer-city-clear-btn {
+  background: rgba(20, 78, 95, 0.08);
+  color: #40728a;
+}
+
+:root[data-theme="sky"] .prayer-city-clear-btn:hover {
+  background: rgba(20, 78, 95, 0.14);
+  color: #0c2d48;
+}
+
+:root[data-theme="sky"] .surah-prayer-hint {
+  border-color: rgba(20, 78, 95, 0.2);
+  background: rgba(210, 232, 240, 0.97);
+  box-shadow: 0 8px 18px rgba(12, 45, 72, 0.08);
+}
+
+:root[data-theme="sky"] .surah-prayer-hint::before {
+  border-left-color: rgba(20, 78, 95, 0.2);
+  border-top-color: rgba(20, 78, 95, 0.2);
+  background: rgba(210, 232, 240, 0.98);
+}
+
+:root[data-theme="sky"] .surah-prayer-hint-text {
+  color: rgba(12, 45, 72, 0.9);
+}
+
+:root[data-theme="sky"] .surah-prayer-hint-dismiss {
+  color: var(--accent);
+}
+
+:root[data-theme="sky"] .surah-prayer-hint-dismiss:hover {
+  color: #0a4a5a;
+}
+
+/* Tajweed colors — tuned for sky-blue background */
+:root[data-theme="sky"] .study-mode-container .tajweed {
+  color: #2e7a66;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.ham_wasl {
+  color: #7f8a82;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.laam_shamsiyah {
+  color: #b8842e;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.laam_qamariyah {
+  color: #3b6fa3;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.madda_normal,
+:root[data-theme="sky"] .study-mode-container .tajweed.madda_permissible,
+:root[data-theme="sky"] .study-mode-container .tajweed.madda_obligatory {
+  color: #3b6fa3;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.madda_necessary {
+  color: #b2553b;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.qalqalah,
+:root[data-theme="sky"] .study-mode-container .tajweed.qalaqah {
+  color: #b84242;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.ikhafa,
+:root[data-theme="sky"] .study-mode-container .tajweed.ikhafa_shafawi,
+:root[data-theme="sky"] .study-mode-container .tajweed.ikhfaa {
+  color: #6a4bb3;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.iqlab {
+  color: #2b7ba3;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.idgham_with_ghunnah,
+:root[data-theme="sky"] .study-mode-container .tajweed.idgham_shafawi,
+:root[data-theme="sky"] .study-mode-container .tajweed.ghunnah {
+  color: #2f7d4b;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.idgham_without_ghunnah {
+  color: #2c6aa6;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.idgham_wo_ghunnah {
+  color: #2c6aa6;
+}
+
+:root[data-theme="sky"] .study-mode-container .tajweed.slnt {
+  color: #7f8a82;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Select arrow SVGs */
+:root[data-theme="sky"] .settings-select,
+:root[data-theme="sky"] .mobile-select {
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px 16px;
+}
+
+/* Scrollbar — scoped to panels only */
+:root[data-theme="sky"] .surah-list,
+:root[data-theme="sky"] .study-panel,
+:root[data-theme="sky"] .page-grid,
+:root[data-theme="sky"] .mobile-settings-body {
+  scrollbar-color: rgba(20, 78, 95, 0.15) transparent;
+}
+
+:root[data-theme="sky"] .surah-list::-webkit-scrollbar,
+:root[data-theme="sky"] .study-panel::-webkit-scrollbar,
+:root[data-theme="sky"] .page-grid::-webkit-scrollbar,
+:root[data-theme="sky"] .mobile-settings-body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+:root[data-theme="sky"] .surah-list::-webkit-scrollbar-track,
+:root[data-theme="sky"] .study-panel::-webkit-scrollbar-track,
+:root[data-theme="sky"] .page-grid::-webkit-scrollbar-track,
+:root[data-theme="sky"] .mobile-settings-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:root[data-theme="sky"] .surah-list::-webkit-scrollbar-thumb,
+:root[data-theme="sky"] .study-panel::-webkit-scrollbar-thumb,
+:root[data-theme="sky"] .page-grid::-webkit-scrollbar-thumb,
+:root[data-theme="sky"] .mobile-settings-body::-webkit-scrollbar-thumb {
+  background: rgba(20, 78, 95, 0.15);
+  border-radius: 4px;
+}
+
+:root[data-theme="sky"] .surah-list::-webkit-scrollbar-thumb:hover,
+:root[data-theme="sky"] .study-panel::-webkit-scrollbar-thumb:hover,
+:root[data-theme="sky"] .page-grid::-webkit-scrollbar-thumb:hover,
+:root[data-theme="sky"] .mobile-settings-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 78, 95, 0.25);
+}
+
+:root[data-theme="sky"] .study-mode-container.page-scope .study-reading-area {
+  scrollbar-color: rgba(20, 78, 95, 0.15) transparent;
+}
+
+:root[data-theme="sky"] .study-mode-container.page-scope .study-reading-area::-webkit-scrollbar-thumb {
+  background: rgba(20, 78, 95, 0.15);
+}
+
+@media (max-width: 768px) {
+  :root[data-theme="sky"] .study-rail {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+}

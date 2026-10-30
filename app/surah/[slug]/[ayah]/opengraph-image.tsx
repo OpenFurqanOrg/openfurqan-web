@@ -1,0 +1,142 @@
+import { ImageResponse } from "next/og";
+import { notFound } from "next/navigation";
+import { SURAH_BY_SLUG } from "../../../data/surahs";
+import { loadVerseSeoText } from "../../../lib/seoQuranText";
+
+export const runtime = "nodejs";
+export const alt = "OpenFurqan — Read and Study the Quran";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+// Rendering all 6,236 images took ~14 of the ~18 build minutes on Vercel.
+// Instead each image is rendered the first time a link preview requests it
+// and cached from then on.
+export function generateStaticParams() {
+  return [];
+}
+
+// ImageResponse defaults to "max-age=0, must-revalidate", and Next.js keeps a
+// route's own Cache-Control instead of adding its ISR one, so Vercel treated
+// each cached image as stale within seconds and re-rendered it. This is the
+// header Next.js sends for prerendered pages.
+const CACHE_HEADERS = { "Cache-Control": "s-maxage=31536000" };
+
+export default async function OGImage({ params }: { params: Promise<{ slug: string; ayah: string }> }) {
+  const { slug, ayah } = await params;
+  const surah = SURAH_BY_SLUG.get(slug);
+  const ayahNum = Number(ayah);
+
+  // 404 before rendering so made-up URLs (including aliases like "01") can't
+  // each spend CPU on an image.
+  if (
+    !surah
+    || !Number.isInteger(ayahNum)
+    || String(ayahNum) !== ayah
+    || ayahNum < 1
+    || ayahNum > surah.ayahCount
+  ) {
+    notFound();
+  }
+
+  let verse: { ar: string; en: string } | null = null;
+  try {
+    verse = await loadVerseSeoText(surah.number, ayahNum);
+  } catch {
+    verse = null;
+  }
+
+  const englishText = verse?.en
+    ? verse.en.length > 220 ? verse.en.slice(0, 220) + "..." : verse.en
+    : "";
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(135deg, #1a3b42 0%, #0b1c20 100%)",
+          fontFamily: "system-ui, sans-serif",
+          padding: 60,
+        }}
+      >
+        {/* Surah number badge */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 72,
+            height: 72,
+            borderRadius: 18,
+            background: "rgba(216, 213, 205, 0.1)",
+            border: "2px solid rgba(216, 213, 205, 0.26)",
+            fontSize: 28,
+            fontWeight: 700,
+            color: "#e8e4db",
+            marginBottom: 24,
+          }}
+        >
+          {`${surah.number}:${ayahNum}`}
+        </div>
+
+        {/* Surah + Ayah info */}
+        <div
+          style={{
+            fontSize: 42,
+            fontWeight: 700,
+            color: "#f2eee6",
+            letterSpacing: "-0.02em",
+            marginBottom: 8,
+          }}
+        >
+          {`Surah ${surah.englishName} \u2014 Ayah ${ayahNum}`}
+        </div>
+
+        {/* Translation name */}
+        <div
+          style={{
+            fontSize: 22,
+            color: "#c8c6bf",
+            marginBottom: 28,
+          }}
+        >
+          {surah.translation}
+        </div>
+
+        {/* English verse text */}
+        {englishText && (
+          <div
+            style={{
+              fontSize: 20,
+              color: "#a8b0ba",
+              textAlign: "center",
+              lineHeight: 1.6,
+              maxWidth: "85%",
+              marginBottom: 28,
+            }}
+          >
+            {`\u201C${englishText}\u201D`}
+          </div>
+        )}
+
+        {/* Meta */}
+        <div
+          style={{
+            display: "flex",
+            gap: 20,
+            fontSize: 16,
+            color: "#4a5568",
+          }}
+        >
+          <span>{`${surah.ayahCount} Ayahs \u00B7 ${surah.revelationType} \u00B7 OpenFurqan`}</span>
+        </div>
+      </div>
+    ),
+    { ...size, headers: CACHE_HEADERS }
+  );
+}

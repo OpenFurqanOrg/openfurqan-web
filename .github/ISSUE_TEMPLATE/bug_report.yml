@@ -1,0 +1,30 @@
+name: Report a bug
+description: Something on openfurqan.com isn't working as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Tell us what went wrong, and where (surah and ayah, or page). A screenshot helps a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we see it too?
+      description: The steps that lead to it.
+      placeholder: |
+        1. Open Al-Baqarah
+        2. Tap the word ...
+        3. ...
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Chrome on a Windows laptop, Safari on an iPhone
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: Found a security problem? Please don't post it here; write to contact@openfurqan.com.

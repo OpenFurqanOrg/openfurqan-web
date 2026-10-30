@@ -1,0 +1,44 @@
+"use client";
+
+import { useBookmarkContext, useQuranData } from "../../contexts";
+
+export default function NoteModal() {
+  const { noteTarget, noteDraft, setNoteDraft, saveNote: onSave, closeNote: onClose } = useBookmarkContext();
+  const { surahByNumber } = useQuranData();
+  if (!noteTarget) {
+    return null;
+  }
+
+  return (
+    <div className="note-panel" role="dialog" aria-modal="true" aria-labelledby="note-modal-title">
+      <div className="compare-header">
+        <div>
+          <p className="eyebrow">Notes</p>
+          <h3 id="note-modal-title">
+            {surahByNumber.get(noteTarget.surah)?.englishName ||
+              `Surah ${noteTarget.surah}`} - Ayah {noteTarget.ayah}
+          </h3>
+        </div>
+        <button className="close-btn" onClick={onClose}>
+          Close
+        </button>
+      </div>
+      <div className="note-body">
+        <textarea
+          value={noteDraft || ""}
+          onChange={(event) => setNoteDraft(event.target.value)}
+          placeholder="Write your reflection or note here..."
+          rows={6}
+        />
+        <div className="note-actions">
+          <button className="action-btn" onClick={onClose}>
+            Cancel
+          </button>
+          <button className="action-btn action-btn--primary" onClick={onSave}>
+            Save note
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

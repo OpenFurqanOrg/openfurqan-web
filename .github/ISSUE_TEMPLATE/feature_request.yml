@@ -1,0 +1,15 @@
+name: Suggest a feature
+description: An idea that would make OpenFurqan better for you.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: How would it help you?
+      description: What you're trying to do, and what gets in the way today.

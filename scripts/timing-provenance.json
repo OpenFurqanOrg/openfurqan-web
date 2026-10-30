@@ -1,0 +1,918 @@
+{
+  "alafasy": {
+    "001": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:15.570Z"
+    },
+    "002": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:15.840Z"
+    },
+    "003": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:16.081Z"
+    },
+    "004": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:16.644Z"
+    },
+    "005": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:16.854Z"
+    },
+    "006": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:17.079Z"
+    },
+    "007": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:17.299Z"
+    },
+    "008": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:17.501Z"
+    },
+    "009": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:17.739Z"
+    },
+    "010": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:17.980Z"
+    },
+    "011": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:18.251Z"
+    },
+    "012": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:18.484Z"
+    },
+    "013": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:18.682Z"
+    },
+    "014": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:18.914Z"
+    },
+    "015": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:19.138Z"
+    },
+    "016": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:19.339Z"
+    },
+    "017": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:19.586Z"
+    },
+    "018": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:19.789Z"
+    },
+    "019": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:20.028Z"
+    },
+    "020": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:20.267Z"
+    },
+    "021": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:20.464Z"
+    },
+    "022": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:20.706Z"
+    },
+    "023": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:20.898Z"
+    },
+    "024": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:21.133Z"
+    },
+    "025": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:21.377Z"
+    },
+    "026": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:21.614Z"
+    },
+    "027": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:21.864Z"
+    },
+    "028": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:22.094Z"
+    },
+    "029": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:22.324Z"
+    },
+    "030": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:22.582Z"
+    },
+    "031": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:22.812Z"
+    },
+    "032": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:23.047Z"
+    },
+    "033": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:23.283Z"
+    },
+    "034": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:23.512Z"
+    },
+    "035": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:23.745Z"
+    },
+    "036": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:23.937Z"
+    },
+    "037": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:24.130Z"
+    },
+    "038": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:24.374Z"
+    },
+    "039": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:24.606Z"
+    },
+    "040": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:24.833Z"
+    },
+    "041": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:25.070Z"
+    },
+    "042": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:25.322Z"
+    },
+    "043": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:25.553Z"
+    },
+    "044": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:25.785Z"
+    },
+    "045": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:26.016Z"
+    },
+    "046": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:26.211Z"
+    },
+    "047": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:26.442Z"
+    },
+    "048": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:26.676Z"
+    },
+    "049": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:27.156Z"
+    },
+    "050": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:27.401Z"
+    },
+    "051": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:27.623Z"
+    },
+    "052": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:27.635Z"
+    },
+    "053": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:27.882Z"
+    },
+    "054": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:28.110Z"
+    },
+    "055": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:28.303Z"
+    },
+    "056": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:28.543Z"
+    },
+    "057": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:28.770Z"
+    },
+    "058": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:29.014Z"
+    },
+    "059": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:29.251Z"
+    },
+    "060": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:29.488Z"
+    },
+    "061": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:29.727Z"
+    },
+    "062": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:29.929Z"
+    },
+    "063": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:30.155Z"
+    },
+    "064": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:30.379Z"
+    },
+    "065": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:30.608Z"
+    },
+    "066": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:30.835Z"
+    },
+    "067": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:31.067Z"
+    },
+    "068": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:31.291Z"
+    },
+    "069": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:31.533Z"
+    },
+    "070": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:31.733Z"
+    },
+    "071": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:31.922Z"
+    },
+    "072": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:32.120Z"
+    },
+    "073": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:32.345Z"
+    },
+    "074": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:32.577Z"
+    },
+    "075": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:32.816Z"
+    },
+    "076": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:33.059Z"
+    },
+    "077": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:33.283Z"
+    },
+    "078": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:33.505Z"
+    },
+    "079": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:33.701Z"
+    },
+    "080": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:33.928Z"
+    },
+    "081": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:34.163Z"
+    },
+    "082": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:34.392Z"
+    },
+    "083": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:34.620Z"
+    },
+    "084": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:34.845Z"
+    },
+    "085": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:35.087Z"
+    },
+    "086": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:35.321Z"
+    },
+    "087": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:35.513Z"
+    },
+    "088": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:35.759Z"
+    },
+    "089": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:35.986Z"
+    },
+    "090": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:36.187Z"
+    },
+    "091": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:36.419Z"
+    },
+    "092": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:36.608Z"
+    },
+    "093": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:36.852Z"
+    },
+    "094": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:37.086Z"
+    },
+    "095": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:37.330Z"
+    },
+    "096": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:37.550Z"
+    },
+    "097": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:37.797Z"
+    },
+    "098": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:37.999Z"
+    },
+    "099": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:38.245Z"
+    },
+    "100": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:38.470Z"
+    },
+    "101": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:38.705Z"
+    },
+    "102": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:38.916Z"
+    },
+    "103": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:39.158Z"
+    },
+    "104": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:39.391Z"
+    },
+    "105": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:39.626Z"
+    },
+    "106": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:39.816Z"
+    },
+    "107": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:40.008Z"
+    },
+    "108": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:40.250Z"
+    },
+    "109": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:40.446Z"
+    },
+    "110": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:40.687Z"
+    },
+    "111": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:40.881Z"
+    },
+    "112": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:41.103Z"
+    },
+    "113": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:41.333Z"
+    },
+    "114": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:41.565Z"
+    }
+  },
+  "husary": {
+    "001": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:48.865Z"
+    },
+    "002": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:49.121Z"
+    },
+    "003": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:49.363Z"
+    },
+    "004": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:49.562Z"
+    },
+    "005": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:49.769Z"
+    },
+    "006": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:49.993Z"
+    },
+    "007": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:50.191Z"
+    },
+    "008": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:50.428Z"
+    },
+    "009": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:50.623Z"
+    },
+    "010": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:50.855Z"
+    },
+    "011": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:51.087Z"
+    },
+    "012": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:51.325Z"
+    },
+    "013": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:51.521Z"
+    },
+    "014": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:51.788Z"
+    },
+    "015": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:51.980Z"
+    },
+    "016": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:52.211Z"
+    },
+    "017": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:52.448Z"
+    },
+    "018": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:52.689Z"
+    },
+    "019": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:52.919Z"
+    },
+    "020": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:53.145Z"
+    },
+    "021": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:53.387Z"
+    },
+    "022": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:53.666Z"
+    },
+    "023": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:54.383Z"
+    },
+    "024": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:54.656Z"
+    },
+    "025": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:54.855Z"
+    },
+    "026": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:55.140Z"
+    },
+    "027": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:55.371Z"
+    },
+    "028": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:55.597Z"
+    },
+    "029": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:55.833Z"
+    },
+    "030": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:56.036Z"
+    },
+    "031": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:56.257Z"
+    },
+    "032": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:56.522Z"
+    },
+    "033": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:56.745Z"
+    },
+    "034": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:56.938Z"
+    },
+    "035": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:57.168Z"
+    },
+    "036": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:57.438Z"
+    },
+    "037": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:57.683Z"
+    },
+    "038": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:57.887Z"
+    },
+    "039": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:58.108Z"
+    },
+    "040": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:58.363Z"
+    },
+    "041": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:58.617Z"
+    },
+    "042": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:58.903Z"
+    },
+    "043": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:59.127Z"
+    },
+    "044": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:59.399Z"
+    },
+    "045": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:59.629Z"
+    },
+    "046": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:32:59.871Z"
+    },
+    "047": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:00.105Z"
+    },
+    "048": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:00.330Z"
+    },
+    "049": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:00.552Z"
+    },
+    "050": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:00.788Z"
+    },
+    "051": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:00.984Z"
+    },
+    "052": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:01.219Z"
+    },
+    "053": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:01.454Z"
+    },
+    "054": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:01.692Z"
+    },
+    "055": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:01.937Z"
+    },
+    "056": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:02.163Z"
+    },
+    "057": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:02.372Z"
+    },
+    "058": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:02.594Z"
+    },
+    "059": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:02.818Z"
+    },
+    "060": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:03.044Z"
+    },
+    "061": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:03.289Z"
+    },
+    "062": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:03.519Z"
+    },
+    "063": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:03.718Z"
+    },
+    "064": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:03.910Z"
+    },
+    "065": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:04.140Z"
+    },
+    "066": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:04.366Z"
+    },
+    "067": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:04.629Z"
+    },
+    "068": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:04.859Z"
+    },
+    "069": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:05.085Z"
+    },
+    "070": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:05.319Z"
+    },
+    "071": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:05.555Z"
+    },
+    "072": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:05.798Z"
+    },
+    "073": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:06.039Z"
+    },
+    "074": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:06.281Z"
+    },
+    "075": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:06.508Z"
+    },
+    "076": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:06.736Z"
+    },
+    "077": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:06.981Z"
+    },
+    "078": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:07.212Z"
+    },
+    "079": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:07.441Z"
+    },
+    "080": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:07.673Z"
+    },
+    "081": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:07.904Z"
+    },
+    "082": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:08.136Z"
+    },
+    "083": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:08.366Z"
+    },
+    "084": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:08.601Z"
+    },
+    "085": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:08.827Z"
+    },
+    "086": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:09.116Z"
+    },
+    "087": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:09.341Z"
+    },
+    "088": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:09.571Z"
+    },
+    "089": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:09.793Z"
+    },
+    "090": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:10.026Z"
+    },
+    "091": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:10.259Z"
+    },
+    "092": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:10.499Z"
+    },
+    "093": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:10.689Z"
+    },
+    "094": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:10.917Z"
+    },
+    "095": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:11.145Z"
+    },
+    "096": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:11.371Z"
+    },
+    "097": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:11.632Z"
+    },
+    "098": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:11.877Z"
+    },
+    "099": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:12.080Z"
+    },
+    "100": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:12.325Z"
+    },
+    "101": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:12.523Z"
+    },
+    "102": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:12.755Z"
+    },
+    "103": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:12.990Z"
+    },
+    "104": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:13.224Z"
+    },
+    "105": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:13.454Z"
+    },
+    "106": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:13.693Z"
+    },
+    "107": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:13.919Z"
+    },
+    "108": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:14.168Z"
+    },
+    "109": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:14.364Z"
+    },
+    "110": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:14.607Z"
+    },
+    "111": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:14.834Z"
+    },
+    "112": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:15.061Z"
+    },
+    "113": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:15.324Z"
+    },
+    "114": {
+      "provider": "quran.com",
+      "fetchedAt": "2026-04-05T02:33:15.557Z"
+    }
+  }
+}

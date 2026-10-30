@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      OPENFURQAN_DATA_KEY: ${{ secrets.OPENFURQAN_DATA_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+      - name: Install deps
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+      - name: Theme tokens
+        run: npm run check:themes
+      # The data service serves OpenFurqan's apps only: the build runs where the key is a secret.
+      - name: Build
+        if: env.OPENFURQAN_DATA_KEY != ''
+        run: npm run build

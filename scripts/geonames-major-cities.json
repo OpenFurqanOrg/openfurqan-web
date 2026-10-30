@@ -1,0 +1,54 @@
+{
+  "source": "https://download.geonames.org/export/dump/cities15000.zip",
+  "sourceSha256": "449edf72e23bbb81532f5617bca2ba2e37357304ab6db34733a19a325add3f7d",
+  "sourceDate": "2026-10-30",
+  "license": "CC-BY-4.0",
+  "credit": "GeoNames, https://www.geonames.org/",
+  "locations": [
+    {
+      "countryCode": "EG",
+      "country": "Egypt",
+      "city": "Cairo",
+      "latitude": 30.06263,
+      "longitude": 31.24967,
+      "timezone": "Africa/Cairo",
+      "geonameId": 360630
+    },
+    {
+      "countryCode": "TR",
+      "country": "Turkey",
+      "city": "Istanbul",
+      "latitude": 41.01384,
+      "longitude": 28.94966,
+      "timezone": "Europe/Istanbul",
+      "geonameId": 745044
+    },
+    {
+      "countryCode": "IN",
+      "country": "India",
+      "city": "Delhi",
+      "latitude": 28.65195,
+      "longitude": 77.23149,
+      "timezone": "Asia/Kolkata",
+      "geonameId": 1273294
+    },
+    {
+      "countryCode": "IN",
+      "country": "India",
+      "city": "Mumbai",
+      "latitude": 19.07283,
+      "longitude": 72.88261,
+      "timezone": "Asia/Kolkata",
+      "geonameId": 1275339
+    },
+    {
+      "countryCode": "ID",
+      "country": "Indonesia",
+      "city": "Jakarta",
+      "latitude": -6.21462,
+      "longitude": 106.84513,
+      "timezone": "Asia/Jakarta",
+      "geonameId": 1642911
+    }
+  ]
+}

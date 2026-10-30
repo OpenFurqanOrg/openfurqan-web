@@ -1,0 +1,584 @@
+"use client";
+
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import type {
+  MouseEvent as ReactMouseEvent,
+  PointerEvent as ReactPointerEvent,
+  ReactNode
+} from "react";
+import { normalizeQuranDisplayArabic } from "../../lib/utils";
+
+type StudyWord = {
+  arabic: string;
+  translation?: string;
+  audioUrl?: string;
+  position?: number;
+  lemma?: string;
+  root?: string;
+  rootArabic?: string;
+};
+
+type StudyAyahCardProps = {
+  ayahNumber: number;
+  surahNumber: number;
+  verseKey: string;
+  cardId: string;
+  scopeIndex: number;
+  viewMode: "surah" | "juz" | "page";
+  isActivePlay: boolean;
+  activeWordPosition?: number | null;
+  isFocused: boolean;
+  isMarked: boolean;
+  isDimmed: boolean;
+  arabicContent: ReactNode;
+  showTajweed: boolean;
+  translationText: string;
+  showTranslation: boolean;
+  transliterationText: string;
+  showTransliteration: boolean;
+  isMushafView: boolean;
+  showWordByWord: boolean;
+  words: StudyWord[];
+  wordLoading: boolean;
+  wordAudioUrl: string | null;
+  selectedWordPosition?: number | null;
+  isBookmarked: boolean;
+  hasNote: boolean;
+  resolveWordAudioUrl: (audioUrl?: string) => string;
+  onFocusAyahKey: (key: string) => void;
+  onOpenMemorize: (ayahNumber: number) => void;
+  onTogglePlay: (surah: number, ayah: number) => void;
+  onToggleBookmark: (surah: number, ayah: number) => void;
+  onOpenTafsir: (key: string) => void;
+  onOpenNote: (surah: number, ayah: number) => void;
+  onToggleStudyMarkByKey: (key: string) => void;
+  isMemorized: boolean;
+  onToggleHifzMark: (key: string) => void;
+  showHifzMode: boolean;
+  onWordSelect: (word: StudyWord, ayahNumber: number, wordIndex: number) => void;
+  onWordAudio: (audioUrl?: string) => void;
+};
+
+function StudyAyahCardComponent({
+  ayahNumber,
+  surahNumber,
+  verseKey,
+  cardId,
+  scopeIndex,
+  viewMode,
+  isActivePlay,
+  activeWordPosition,
+  isFocused,
+  isMarked,
+  isDimmed,
+  arabicContent,
+  showTajweed,
+  translationText,
+  showTranslation,
+  transliterationText,
+  showTransliteration,
+  isMushafView,
+  showWordByWord,
+  words,
+  wordLoading,
+  wordAudioUrl,
+  selectedWordPosition,
+  isBookmarked,
+  hasNote,
+  resolveWordAudioUrl,
+  onFocusAyahKey,
+  onOpenMemorize,
+  onTogglePlay,
+  onToggleBookmark,
+  onOpenTafsir,
+  onOpenNote,
+  onToggleStudyMarkByKey,
+  isMemorized,
+  onToggleHifzMark,
+  showHifzMode,
+  onWordSelect,
+  onWordAudio
+}: StudyAyahCardProps) {
+  const isPageView = viewMode === "page";
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longPressTriggeredRef = useRef(false);
+  const pointerStartRef = useRef<{ x: number; y: number } | null>(null);
+  const [hifzToast, setHifzToast] = useState<string | null>(null);
+  const hifzToastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleHifzToggle = useCallback(() => {
+    const willMemorize = !isMemorized;
+    onToggleHifzMark(verseKey);
+    setHifzToast(willMemorize ? "Marked as memorized" : "Unmarked");
+    if (hifzToastTimer.current) clearTimeout(hifzToastTimer.current);
+    hifzToastTimer.current = setTimeout(() => setHifzToast(null), 1500);
+  }, [isMemorized, onToggleHifzMark, verseKey]);
+
+  const clearLongPressTimer = () => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+    pointerStartRef.current = null;
+  };
+
+  const isInteractiveTarget = (target: EventTarget | null) => {
+    return target instanceof Element && Boolean(
+      target.closest("button, a, input, textarea, select, [role='button']")
+    );
+  };
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (isInteractiveTarget(event.target)) return;
+
+    longPressTriggeredRef.current = false;
+    clearLongPressTimer();
+    pointerStartRef.current = { x: event.clientX, y: event.clientY };
+    longPressTimerRef.current = setTimeout(() => {
+      longPressTriggeredRef.current = true;
+      onToggleStudyMarkByKey(verseKey);
+    }, 450);
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLElement>) => {
+    if (!pointerStartRef.current || !longPressTimerRef.current) return;
+    const dx = event.clientX - pointerStartRef.current.x;
+    const dy = event.clientY - pointerStartRef.current.y;
+    if (Math.hypot(dx, dy) > 10) {
+      clearLongPressTimer();
+    }
+  };
+
+  const handlePointerEnd = () => {
+    clearLongPressTimer();
+  };
+
+  const handleCardClick = (event: ReactMouseEvent<HTMLElement>) => {
+    if (isInteractiveTarget(event.target)) return;
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false;
+      return;
+    }
+    onFocusAyahKey(verseKey);
+  };
+
+  useEffect(() => {
+    return () => clearLongPressTimer();
+  }, []);
+
+  return (
+    <article
+      id={cardId}
+      data-scope-index={scopeIndex}
+      data-verse-key={verseKey}
+      data-ayah-number={ayahNumber}
+      className={`study-ayah-card study-focus-track${isPageView ? " page-mode" : ""}${isActivePlay ? " playing" : ""}${isFocused ? " focused" : ""}${isMarked ? " marked" : ""}${isDimmed ? " dimmed" : ""}${isMemorized ? " memorized" : ""}`}
+      onClick={handleCardClick}
+      onFocus={() => onFocusAyahKey(verseKey)}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerEnd}
+      onPointerCancel={handlePointerEnd}
+      onPointerLeave={handlePointerEnd}
+      tabIndex={0}
+    >
+      <div className="study-ayah-content">
+        {!isPageView && (
+          <div className="ayah-header study-ayah-header">
+            <span className="ayah-number">Ayah {ayahNumber}</span>
+            <div className="ayah-actions study-ayah-actions">
+              {viewMode === "surah" && (
+                <button
+                  className="action-icon-btn memorize-icon"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onOpenMemorize(ayahNumber);
+                  }}
+                  aria-label="Repeat Ayah"
+                  title="Repeat Ayah"
+                  type="button"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M17 2l4 4-4 4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M3 12v-2a4 4 0 0 1 4-4h14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M7 22l-4-4 4-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M21 14v2a4 4 0 0 1-4 4H3"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              )}
+              <button
+                className={`action-icon-btn play-icon${isActivePlay ? " playing" : ""}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onTogglePlay(surahNumber, ayahNumber);
+                }}
+                aria-label={isActivePlay ? "Pause ayah" : "Play ayah"}
+                title={isActivePlay ? "Pause ayah" : "Play ayah"}
+                type="button"
+              >
+                {isActivePlay ? (
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="6" y="5" width="4" height="14" fill="currentColor" />
+                    <rect x="14" y="5" width="4" height="14" fill="currentColor" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <polygon points="6,4 20,12 6,20" fill="currentColor" />
+                  </svg>
+                )}
+              </button>
+              <button
+                className={`action-icon-btn${isBookmarked ? " saved" : ""}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onToggleBookmark(surahNumber, ayahNumber);
+                }}
+                aria-label={isBookmarked ? "Remove bookmark" : "Save bookmark"}
+                title={isBookmarked ? "Remove bookmark" : "Save bookmark"}
+                type="button"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M6 3h12a2 2 0 0 1 2 2v16l-8-5-8 5V5a2 2 0 0 1 2-2z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                className="action-icon-btn"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onOpenTafsir(verseKey);
+                }}
+                aria-label="Open tafsir"
+                title="Open tafsir"
+                type="button"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 4h14a2 2 0 0 1 2 2v13"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 4v13a2 2 0 0 0 2 2h14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M8 8h8M8 12h6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                className={`action-icon-btn${hasNote ? " saved" : ""}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onOpenNote(surahNumber, ayahNumber);
+                }}
+                aria-label={hasNote ? "Edit note" : "Add note"}
+                title={hasNote ? "Edit note" : "Add note"}
+                type="button"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 20h9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              {showHifzMode && (
+                <button
+                  className={`action-icon-btn hifz-icon${isMemorized ? " memorized" : ""}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleHifzToggle();
+                  }}
+                  aria-label={isMemorized ? "Unmark as memorized" : "Mark as memorized"}
+                  title={isMemorized ? "Unmark as memorized" : "Mark as memorized"}
+                  type="button"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M9 12l2 2 4-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                </button>
+              )}
+              {hifzToast && createPortal(
+                <span className="hifz-toast">{hifzToast}</span>,
+                document.body
+              )}
+            </div>
+          </div>
+        )}
+        {words.length > 0 && !showTajweed ? (
+          <div
+            className="study-ayah-arabic study-ayah-arabic-interactive"
+            lang="ar"
+            dir="rtl"
+          >
+            {words.map((word, wordIndex) => {
+              const position = Number(word.position) || wordIndex + 1;
+              const isSelected = selectedWordPosition === position;
+              const isPlaybackActive = isActivePlay && activeWordPosition === position;
+              return (
+                <button
+                  key={`${cardId}-arabic-word-${position}`}
+                  type="button"
+                  className={`study-ayah-word-trigger${isSelected ? " active" : ""}${isPlaybackActive ? " playback-active" : ""}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onWordSelect(word, ayahNumber, wordIndex);
+                  }}
+                >
+                  {normalizeQuranDisplayArabic(word.arabic)}
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <p
+            className="study-ayah-arabic"
+            lang="ar"
+            dir="rtl"
+          >
+            {arabicContent}
+          </p>
+        )}
+        {isPageView && (
+          <div className="study-page-meta">
+            <span className="study-page-ayah-marker">Ayah {ayahNumber}</span>
+            <div className="study-page-actions">
+              <button
+                className={`action-icon-btn play-icon${isActivePlay ? " playing" : ""}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onTogglePlay(surahNumber, ayahNumber);
+                }}
+                aria-label={isActivePlay ? "Stop ayah" : "Play ayah"}
+                title={isActivePlay ? "Stop ayah" : "Play ayah"}
+                type="button"
+              >
+                {isActivePlay ? (
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="6" y="5" width="4" height="14" fill="currentColor" />
+                    <rect x="14" y="5" width="4" height="14" fill="currentColor" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <polygon points="6,4 20,12 6,20" fill="currentColor" />
+                  </svg>
+                )}
+              </button>
+              <button
+                className={`action-icon-btn${isBookmarked ? " saved" : ""}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onToggleBookmark(surahNumber, ayahNumber);
+                }}
+                aria-label={isBookmarked ? "Remove bookmark" : "Save bookmark"}
+                title={isBookmarked ? "Remove bookmark" : "Save bookmark"}
+                type="button"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M6 3h12a2 2 0 0 1 2 2v16l-8-5-8 5V5a2 2 0 0 1 2-2z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                className="action-icon-btn"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onOpenTafsir(verseKey);
+                }}
+                aria-label="Open tafsir"
+                title="Open tafsir"
+                type="button"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 4h14a2 2 0 0 1 2 2v13"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 4v13a2 2 0 0 0 2 2h14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M8 8h8M8 12h6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                className={`action-icon-btn${hasNote ? " saved" : ""}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onOpenNote(surahNumber, ayahNumber);
+                }}
+                aria-label={hasNote ? "Edit note" : "Add note"}
+                title={hasNote ? "Edit note" : "Add note"}
+                type="button"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 20h9"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+        {!isMushafView && !isPageView && showTransliteration && transliterationText ? (
+          <p className="study-ayah-transliteration">{transliterationText}</p>
+        ) : null}
+        {!isMushafView && !isPageView && showTranslation && translationText && (
+          <p className="study-ayah-translation">
+            {translationText}
+          </p>
+        )}
+        {showWordByWord && !isPageView && (
+          <div className="study-word-row">
+            {wordLoading && words.length === 0 && <span className="meta">Loading words...</span>}
+            {words.map((word, wordIndex) => {
+              const resolvedAudioUrl = resolveWordAudioUrl(word.audioUrl);
+              return (
+                <button
+                  key={`${cardId}-${wordIndex}`}
+                  className={`study-word-chip${resolvedAudioUrl && wordAudioUrl === resolvedAudioUrl ? " playing" : ""}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onWordAudio(word.audioUrl);
+                  }}
+                  type="button"
+                >
+                  <span className="word-ar" lang="ar" dir="rtl">
+                    {normalizeQuranDisplayArabic(word.arabic)}
+                  </span>
+                  {word.translation && <span className="word-en">{word.translation}</span>}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
+
+const StudyAyahCard = memo(StudyAyahCardComponent);
+
+export default StudyAyahCard;
+export type { StudyAyahCardProps, StudyWord };

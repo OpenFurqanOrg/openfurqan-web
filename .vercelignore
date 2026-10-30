@@ -1,0 +1,8 @@
+# Left out of `vercel` uploads: the build installs, downloads and checks these itself.
+node_modules
+.next
+.openfurqan-data
+.migration-evidence
+.env
+.env.*
+!.env.example

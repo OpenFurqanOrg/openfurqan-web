@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+*.tsbuildinfo
+
+# Environment: keep secrets out of git
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel/
+
+# The Quran data, downloaded and checked at build time
+.openfurqan-data/
+.migration-evidence/
+
+# Caches and test output
+.eslintcache
+coverage/
+
+# Logs
+npm-debug.log*
+
+# Editors and the OS
+.idea/
+.DS_Store

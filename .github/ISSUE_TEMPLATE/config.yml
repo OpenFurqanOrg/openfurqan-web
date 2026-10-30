@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Something wrong in the Android app?
+    url: https://github.com/OpenFurqanOrg/openfurqan-android/issues/new/choose
+    about: The app has its own place for bug reports and ideas.
+  - name: Write to us
+    url: mailto:contact@openfurqan.com
+    about: Questions, security problems, or anything you'd rather not post publicly.

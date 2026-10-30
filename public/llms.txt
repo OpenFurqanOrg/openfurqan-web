@@ -1,0 +1,114 @@
+# OpenFurqan
+
+> A free web app for reading, studying, memorizing, and listening to the Quran — no account, no ads, no payment.
+
+Website: https://openfurqan.com
+
+## About
+
+OpenFurqan is a free, open-source web application that combines Quran reading, deep study, memorization, audio recitation, ayah image sharing, local Quran search, and recitation notes in a single fast interface. Most Quran websites focus only on reading. OpenFurqan was built to end the tab-switching between reading, word analysis, Tafsir, memorization, search, sharing, and personal study tools. No account required — notes, progress, and recitation recordings stay on the user's device and are not uploaded to OpenFurqan servers.
+
+## What Makes It Different
+
+- No login, no account, no sign-up required
+- No ads, no tracking, no data collection
+- Reader + study workflow in one place (no tab-switching)
+- Per-ayah translation comparison and Tafsir access from the reader
+- Ayah image sharing with background palettes and text-size controls
+- Local recitation notes with recording, replay, download, and delete
+- Anki-style spaced repetition for Quran memorization
+- Word-level Arabic study with word audio, Lane's Lexicon, and root analysis
+- Powerful Quran search by Arabic, translation, transliteration, word meaning, root, lemma, and surah name
+- Three reading views: Surah, Juz (all 30), and Mushaf Page (all 604)
+- Fast, offline-capable Progressive Web App
+
+## Content
+
+- 114 Surahs (chapters) of the Holy Quran
+- 6,236 Ayahs (verses) with full Arabic text
+- 20+ translations across 9+ languages
+- Word-by-word Arabic analysis with root dictionary
+- Quran search support for Arabic, translation, transliteration, gloss, roots, lemmas, and surah names
+
+## Translations
+
+English: Sahih International, Yusuf Ali, Pickthall, Arberry, Haleem, Muhsin Khan, Taqi Usmani, Ahmed Raza, Maarif-ul-Quran, Transliteration
+Bangla: Muhiuddin Khan, Zohurul Hoque
+Urdu: Bayan-ul-Quran, Kanz al-Iman
+German: Bubenheim
+Spanish: Cortes
+French: Hamidullah
+Hindi: Al-Umari
+Turkish: Suleyman Ates
+Sinhala: Naseem Ismail
+
+## Audio Reciters (16)
+
+Mishary Rashid Alafasy, Abdurrahman As-Sudais, Saud Ash-Shuraym, Abu Bakr Ash-Shaatree, Maher Al-Muaiqly, Hani Rifai, Abdul Basit (Murattal), Abdul Basit (Mujawwad), Mahmoud Khalil Al-Husary, Al-Husary (Muallim), Mohamed Siddiq Al-Minshawi, Saad Al-Ghamdi, Ahmed ibn Ali al-Ajmy, Abdullah Ali Jabir, Khalifah Al Tunaiji, Yasser Ad-Dussary. Adjustable playback speed and continuous surah playback. Supported reciters can highlight Arabic words during playback.
+
+## Features
+
+Reading:
+- Clean, distraction-free Quran reader
+- Three reading views: Surah, Juz (para), and Mushaf Page
+- Multiple translations side by side
+- Compare icon on each ayah card for translation comparison and Tafsir access
+- Share ayahs as generated images with background palettes, Arabic/English text-size controls, save, and native share
+- Canonical ayah sharing URLs such as https://openfurqan.com/surah/yusuf/53
+- Audio recitation from 16 reciters with adjustable speed
+- Word-synced Arabic highlighting during audio playback for supported reciters
+- 6 themes (Dark, Parchment, Black & White, Dark B&W, Mist, Sky)
+- 4 Arabic fonts, Scheherazade New default, Uthmani/Naskh script, adjustable text sizes
+- Reading position saved per surah, juz, and page
+- Offline PWA support — installable on any device
+
+Study:
+- Word-by-word Arabic meanings, word audio, root analysis, Root Details, and Lane's Lexicon definitions
+- 15+ color-coded Tajweed pronunciation rules with legend
+- 7+ Tafsir editions on demand (Maarif-ul-Quran, Maududi, Al-Jalalayn, etc.)
+- Bookmarks, personal notes per ayah, recitation notes, and reading plans
+- Unified local search with Arabic text, translation, transliteration, word meanings, roots, lemmas, surah names, recent history, and Root Details access from root matches
+- Reading statistics: daily verses, time spent, streaks, and history
+- Full keyboard shortcuts
+
+Memorization:
+- Anki-style spaced repetition (SRS) with flashcards and ratings (Again/Hard/Good/Easy)
+- Word-by-word meaning memorization using real Quran word data
+- Embedded memorization access from Study Mode
+- Audio autoplay on cards, session stats, streak tracking, session sharing
+- Hifz repetition mode with audio loops and ayah range selection
+- Memorization progress tracked across surahs
+
+Other:
+- Prayer times for 31+ countries with 11+ calculation methods
+- No account required — notes, progress, and recitation recordings stay on the user's device and are not uploaded to OpenFurqan servers
+- No ads, no tracking, no data collection
+
+## Data Sources
+
+All Quranic text, translations, audio recitations, and linguistic data are sourced from well-established, widely trusted Islamic and academic datasets. Every piece of data has been carefully cross-checked, analyzed, and verified for accuracy before inclusion.
+
+## Privacy
+
+No accounts, no tracking pixels, no analytics cookies, no third-party data collection. User data such as bookmarks, notes, recitation recordings, progress, and memorization history stays on the user's device and is not uploaded to OpenFurqan servers. Microphone permission is requested only when the user chooses to record a recitation note.
+
+## URL Structure
+
+- Homepage: https://openfurqan.com
+- Study Mode: https://openfurqan.com/?mode=study
+- Surah page: https://openfurqan.com/surah/{surah-slug}
+- Ayah page: https://openfurqan.com/surah/{surah-slug}/{ayah-number}
+- Memorization: https://openfurqan.com/memorization
+
+## Documentation
+
+- About: https://openfurqan.com/about
+- FAQ: https://openfurqan.com/faq
+
+## Sitemap
+
+https://openfurqan.com/sitemap.xml
+
+## Contact
+
+Website: https://openfurqan.com

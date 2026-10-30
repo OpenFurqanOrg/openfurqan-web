@@ -1,0 +1,176 @@
+import { existsSync } from "node:fs";
+import { readFile } from "node:fs/promises";
+import { dataPath } from "../dataPath";
+import { buckwalterToArabic, normalizeRootKey } from "./buckwalter";
+
+export type LaneRootEntry = {
+  root?: string;
+  rootArabic?: string;
+  coreMeanings?: string[];
+  definitions?: string[];
+};
+
+type LaneLexiconMap = Map<string, LaneRootEntry>;
+
+let cachedLexicon: LaneLexiconMap | null = null;
+let cachedLaneError: string | null = null;
+let lexiconPromise: Promise<LaneLexiconMap | null> | null = null;
+
+const laneCandidates = () => [
+  dataPath("lane-lexicon.json")
+];
+
+const cleanLaneText = (value: string) =>
+  value
+    .normalize("NFC")
+    .replace(/[\u200E\u200F]/g, "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/\s*\n+\s*/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(/\s([,.;:!?])/g, "$1")
+    .replace(/\(\s+/g, "(")
+    .replace(/\s+\)/g, ")")
+    .replace(/\sذ\s*(?=,)/g, " ")
+    .trim();
+
+const shouldResegmentDefinitions = (rawDefinitions: string[], cleanedDefinitions: string[]) => {
+  if (cleanedDefinitions.length <= 1) return false;
+  const newlineCount = rawDefinitions.reduce(
+    (count, definition) => count + (definition.includes("\n") ? 1 : 0),
+    0
+  );
+  if (newlineCount >= Math.ceil(rawDefinitions.length / 2)) return true;
+  return cleanedDefinitions.some((definition) =>
+    /(?:\baor\.|\binf\. n\.|,\s*|\:\s*|\[\s*)$/i.test(definition)
+  );
+};
+
+const splitLongLaneSections = (sections: string[], maxLength = 420) =>
+  sections.flatMap((section) => {
+    if (section.length <= maxLength) return [section];
+    const sentences = section
+      .split(/(?<=[.;!?])\s+(?=[A-Za-z\u0600-\u06FF\[])/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+    if (sentences.length <= 1) return [section];
+    const chunks: string[] = [];
+    let current = "";
+    for (const sentence of sentences) {
+      const next = current ? `${current} ${sentence}` : sentence;
+      if (next.length > maxLength && current) {
+        chunks.push(current.trim());
+        current = sentence;
+      } else {
+        current = next;
+      }
+    }
+    if (current) chunks.push(current.trim());
+    return chunks;
+  });
+
+const normalizeDefinitions = (rawDefinitions: string[]) => {
+  const cleanedDefinitions = rawDefinitions.map(cleanLaneText).filter(Boolean);
+  if (!cleanedDefinitions.length) return [];
+  if (!shouldResegmentDefinitions(rawDefinitions, cleanedDefinitions)) return cleanedDefinitions;
+
+  const combined = cleanedDefinitions.join(" ");
+  const sections = combined
+    .replace(/\s+(?=-(?:[A-Za-z]\d*)-\s*)/g, "\n")
+    .split(/\n+/)
+    .map((section) => section.trim())
+    .map((section) => section.replace(/^-(?:[A-Za-z]\d*)-\s*/, ""))
+    .map((section) => section.replace(/^\d+\s+/, ""))
+    .filter(Boolean);
+
+  return splitLongLaneSections(sections, 420);
+};
+
+const normalizeEntry = (value: unknown): LaneRootEntry | null => {
+  if (!value || typeof value !== "object") return null;
+  const entry = value as Record<string, unknown>;
+  const coreMeanings = Array.isArray(entry.coreMeanings)
+    ? entry.coreMeanings
+        .filter((item): item is string => typeof item === "string")
+        .map(cleanLaneText)
+        .filter(Boolean)
+    : [];
+  const definitions = Array.isArray(entry.definitions)
+    ? normalizeDefinitions(
+        entry.definitions.filter((item): item is string => typeof item === "string")
+      )
+    : [];
+  const rootArabic = typeof entry.rootArabic === "string" ? entry.rootArabic : "";
+  const root = typeof entry.root === "string" ? entry.root : "";
+  return {
+    root: root || undefined,
+    rootArabic: rootArabic || undefined,
+    coreMeanings,
+    definitions
+  };
+};
+
+const loadLaneLexiconAsync = async (): Promise<LaneLexiconMap | null> => {
+  if (cachedLexicon) return cachedLexicon;
+  if (cachedLaneError) return null;
+
+  for (const candidate of laneCandidates()) {
+    if (!existsSync(candidate)) continue;
+    try {
+      const raw = await readFile(candidate, "utf8");
+      const payload = JSON.parse(raw) as unknown;
+      if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+        continue;
+      }
+      const map: LaneLexiconMap = new Map();
+      for (const [root, rawEntry] of Object.entries(payload as Record<string, unknown>)) {
+        const normalized = normalizeEntry(rawEntry);
+        if (!normalized) continue;
+        const keys = [
+          root,
+          buckwalterToArabic(root),
+          normalized.root || "",
+          buckwalterToArabic(normalized.root || ""),
+          normalized.rootArabic || ""
+        ];
+        for (const key of keys) {
+          const normalizedKey = normalizeRootKey(key);
+          if (!normalizedKey || map.has(normalizedKey)) continue;
+          map.set(normalizedKey, normalized);
+        }
+      }
+      cachedLexicon = map;
+      return map;
+    } catch {
+      continue;
+    }
+  }
+
+  cachedLaneError = "Lane lexicon file not found.";
+  return null;
+};
+
+const loadLaneLexicon = async (): Promise<LaneLexiconMap | null> => {
+  if (cachedLexicon) return cachedLexicon;
+  if (!lexiconPromise) {
+    lexiconPromise = loadLaneLexiconAsync();
+  }
+  return lexiconPromise;
+};
+
+export const getLaneEntry = async (root: string) => {
+  const map = await loadLaneLexicon();
+  if (!map || !root) return null;
+  const normalizedInput = normalizeRootKey(root);
+  if (normalizedInput && map.has(normalizedInput)) {
+    return map.get(normalizedInput) || null;
+  }
+  const convertedInput = normalizeRootKey(buckwalterToArabic(root));
+  if (convertedInput && map.has(convertedInput)) {
+    return map.get(convertedInput) || null;
+  }
+  return null;
+};
+
+export const hasLaneLexicon = async () => Boolean(await loadLaneLexicon());
+
+export const getLaneLoadError = () => cachedLaneError;
