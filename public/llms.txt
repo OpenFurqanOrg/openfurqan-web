@@ -1,14 +1,54 @@
 # OpenFurqan
 
-> A free web app for reading, studying, memorizing, and listening to the Quran — no account, no ads, no payment.
+> A free Quran app for Android and the web, for reading, studying, memorizing, and listening to the Quran — no account, no ads, no payment.
 
 Website: https://openfurqan.com
+Android app: https://play.google.com/store/apps/details?id=com.openfurqan.app (app page: https://openfurqan.com/app)
 
 ## About
 
-OpenFurqan is a free, open-source web application that combines Quran reading, deep study, memorization, audio recitation, ayah image sharing, local Quran search, and recitation notes in a single fast interface. Most Quran websites focus only on reading. OpenFurqan was built to end the tab-switching between reading, word analysis, Tafsir, memorization, search, sharing, and personal study tools. No account required — notes, progress, and recitation recordings stay on the user's device and are not uploaded to OpenFurqan servers.
+OpenFurqan is a free, open-source web application that combines Quran reading, deep study, memorization, audio recitation, ayah image sharing, local Quran search, and recitation notes in a single fast interface. Most Quran websites focus only on reading. OpenFurqan was built to end the tab-switching between reading, word analysis, Tafsir, memorization, search, sharing, and personal study tools. No account required — notes, progress, and recitation recordings stay on the user's device and are not uploaded to OpenFurqan servers. OpenFurqan is also an Android app, described in the next section.
 
-## What Makes It Different
+## OpenFurqan for Android
+
+"OpenFurqan: Quran App" is free on Google Play, with no ads, no account, no tracking, and no in-app purchases.
+
+- Google Play: https://play.google.com/store/apps/details?id=com.openfurqan.app
+- App page: https://openfurqan.com/app
+- Release notes: https://github.com/OpenFurqanOrg/openfurqan-android/blob/main/CHANGELOG.md
+- Requires Android 7.0 or newer
+- The app is in English, Bangla, Hindi, and Urdu
+
+Reading:
+- By surah, by juz, or page by page through the 604-page Madani Mushaf
+- Word-by-word meaning and transliteration under every ayah
+- Translations in 75 languages, including English, Bangla, Urdu, Hindi, Indonesian, Persian, Russian, Turkish, Swahili, Tamil, and Chinese
+- 44 tafsirs, including Ibn Kathir, Maarif-ul-Quran, al-Muyassar, al-Tabari, al-Qurtubi, as-Sa'di, Tazkirul Quran, and Al-Mukhtasar
+- Tajweed colours, a choice of Arabic fonts, light and dark themes, and a quiet focus mode
+- Go straight to any ayah from the reader's header
+
+Listening:
+- 16 reciters, including Mishary Alafasy, Abdul Basit, Mahmoud Khalil Al-Husary, Mohamed Siddiq Al-Minshawi, Abdurrahman As-Sudais, and Saad Al-Ghamdi
+- The text follows the recitation, most of it word by word
+- Repeat an ayah, a range, or a surah; keep listening in the background; hear any single word pronounced
+
+Study:
+- Tap any word for its meaning, grammar, root, and its entry in Lane's Lexicon
+- All 1,651 Quranic roots, each with every word and ayah built from it
+- Hadith beside the ayahs they relate to, from Sahih al-Bukhari, Sahih Muslim, Jami at-Tirmidhi, and more
+- Search by Arabic, translation, word meaning, root, or ayah number
+- A notebook for written and voice notes, and saved ayahs
+
+Memorization:
+- Memorize ayahs by uncovering them word by word while reciting, with each ayah coming back for review when it is due
+- Learn the Quran's vocabulary with daily review, one word and its root at a time
+
+Privacy and offline use:
+- Notes, bookmarks, recordings, and progress stay on the phone, with a local backup file
+- The Quran text, the main translations, and most study material are built in; tafsirs and recitations download once and are kept for offline use
+- Privacy policy: https://openfurqan.com/privacy
+
+## What Makes the Web App Different
 
 - No login, no account, no sign-up required
 - No ads, no tracking, no data collection
@@ -22,7 +62,7 @@ OpenFurqan is a free, open-source web application that combines Quran reading, d
 - Three reading views: Surah, Juz (all 30), and Mushaf Page (all 604)
 - Fast, offline-capable Progressive Web App
 
-## Content
+## Web App Content
 
 - 114 Surahs (chapters) of the Holy Quran
 - 6,236 Ayahs (verses) with full Arabic text
@@ -30,7 +70,7 @@ OpenFurqan is a free, open-source web application that combines Quran reading, d
 - Word-by-word Arabic analysis with root dictionary
 - Quran search support for Arabic, translation, transliteration, gloss, roots, lemmas, and surah names
 
-## Translations
+## Web App Translations
 
 English: Sahih International, Yusuf Ali, Pickthall, Arberry, Haleem, Muhsin Khan, Taqi Usmani, Ahmed Raza, Maarif-ul-Quran, Transliteration
 Bangla: Muhiuddin Khan, Zohurul Hoque
@@ -42,11 +82,11 @@ Hindi: Al-Umari
 Turkish: Suleyman Ates
 Sinhala: Naseem Ismail
 
-## Audio Reciters (16)
+## Web App Audio Reciters (16)
 
 Mishary Rashid Alafasy, Abdurrahman As-Sudais, Saud Ash-Shuraym, Abu Bakr Ash-Shaatree, Maher Al-Muaiqly, Hani Rifai, Abdul Basit (Murattal), Abdul Basit (Mujawwad), Mahmoud Khalil Al-Husary, Al-Husary (Muallim), Mohamed Siddiq Al-Minshawi, Saad Al-Ghamdi, Ahmed ibn Ali al-Ajmy, Abdullah Ali Jabir, Khalifah Al Tunaiji, Yasser Ad-Dussary. Adjustable playback speed and continuous surah playback. Supported reciters can highlight Arabic words during playback.
 
-## Features
+## Web App Features
 
 Reading:
 - Clean, distraction-free Quran reader
@@ -95,6 +135,7 @@ No accounts, no tracking pixels, no analytics cookies, no third-party data colle
 ## URL Structure
 
 - Homepage: https://openfurqan.com
+- Android app page: https://openfurqan.com/app
 - Study Mode: https://openfurqan.com/?mode=study
 - Surah page: https://openfurqan.com/surah/{surah-slug}
 - Ayah page: https://openfurqan.com/surah/{surah-slug}/{ayah-number}
@@ -112,3 +153,5 @@ https://openfurqan.com/sitemap.xml
 ## Contact
 
 Website: https://openfurqan.com
+Email: contact@openfurqan.com
+GitHub: https://github.com/OpenFurqanOrg
