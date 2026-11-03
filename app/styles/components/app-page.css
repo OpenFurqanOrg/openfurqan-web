@@ -10,6 +10,8 @@
   --ap-green: #26735a;
   --ap-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   color-scheme: light;
+  /* Keeps the floating bar's top margin inside the page, so no band of the window shows above it. */
+  display: flow-root;
   min-height: 100vh;
   background: var(--ap-paper);
   color: var(--ap-ink);
@@ -20,6 +22,7 @@
 
 /* The reader's theme paints the body and a glow behind it; this page keeps its grey to the edges, even
    when a phone over-scrolls. */
+html:has(.app-page),
 body:has(.app-page) {
   background: #f5f5f7;
 }
@@ -54,8 +57,8 @@ body:has(.app-page)::after {
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(22px) saturate(190%) brightness(1.06);
-  -webkit-backdrop-filter: blur(22px) saturate(190%) brightness(1.06);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     inset 0 -1px 0 rgba(0, 0, 0, 0.04),
@@ -445,8 +448,9 @@ body:has(.app-page)::after {
   color: var(--ap-ink);
 }
 
-/* Motion: the hero rises in once, and each part fades up as it scrolls into view. Browsers without
-   scroll-linked animation, and anyone who asks for less motion, simply see the page. */
+/* Motion: the hero rises in once, and each part below it fades up once, over a set time, when it first
+   comes into view (RevealOnScroll), so nothing is ever left half-faded. Anyone who asks for less motion
+   simply sees the page. */
 @keyframes ap-rise {
   from {
     opacity: 0;
@@ -476,12 +480,15 @@ body:has(.app-page)::after {
     animation-delay: 0.3s;
   }
 
-  @supports (animation-timeline: view()) {
-    .app-page [data-reveal] {
-      animation: ap-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 70%;
-    }
+  .app-page [data-reveal] {
+    transition:
+      opacity 0.8s var(--ap-ease),
+      transform 0.8s var(--ap-ease);
+  }
+
+  .app-page [data-reveal].ap-pending {
+    opacity: 0;
+    transform: translateY(32px);
   }
 }
 

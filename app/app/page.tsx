@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata, Viewport } from "next";
 import { preload } from "react-dom";
 import PhoneVideo from "./PhoneVideo";
+import RevealOnScroll from "./RevealOnScroll";
 
 const PLAY_URL =
   "https://play.google.com/store/apps/details?id=com.openfurqan.app&referrer=utm_source%3Dopenfurqan.com%26utm_medium%3Dapp-page";
@@ -244,6 +245,8 @@ export default function AppPage() {
           </p>
         </div>
       </section>
+
+      <RevealOnScroll />
 
       <footer className="ap-footer">
         <Link href="/privacy">Privacy policy</Link>
