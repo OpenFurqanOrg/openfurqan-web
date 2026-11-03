@@ -45,6 +45,12 @@ export default async function sitemap(
         priority: 1.0
       },
       {
+        url: `${BASE}/app`,
+        lastModified: LAST_MODIFIED,
+        changeFrequency: "monthly" as const,
+        priority: 0.9
+      },
+      {
         url: `${BASE}/about`,
         lastModified: LAST_MODIFIED,
         changeFrequency: "monthly" as const,

@@ -1,0 +1,490 @@
+/* The Android app's page (/app): light and editorial, whatever theme the reader uses. The page is a soft
+   grey so the app's white screens stand out; the app moves in its own recordings, and the page only fades
+   each part in as it scrolls into view. */
+.app-page {
+  --ap-ink: #1d1d1f;
+  --ap-ink-soft: #6e6e73;
+  --ap-paper: #f5f5f7;
+  --ap-band: #ffffff;
+  --ap-line: #d9d9de;
+  --ap-green: #26735a;
+  --ap-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  color-scheme: light;
+  min-height: 100vh;
+  background: var(--ap-paper);
+  color: var(--ap-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+/* The reader's theme paints the body and a glow behind it; this page keeps its grey to the edges, even
+   when a phone over-scrolls. */
+body:has(.app-page) {
+  background: #f5f5f7;
+}
+
+body:has(.app-page)::before,
+body:has(.app-page)::after {
+  display: none;
+}
+
+.app-page a {
+  color: inherit;
+}
+
+/* The bar: a floating capsule of frosted glass. What scrolls beneath it blurs and brightens, and a soft
+   light catches its upper edge. */
+.ap-nav {
+  position: sticky;
+  top: 12px;
+  z-index: 10;
+  max-width: 1040px;
+  margin: 12px auto 0;
+  padding: 0 12px;
+}
+
+.ap-nav-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 10px 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(22px) saturate(190%) brightness(1.06);
+  -webkit-backdrop-filter: blur(22px) saturate(190%) brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+    0 10px 30px -12px rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.ap-nav-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%);
+  pointer-events: none;
+}
+
+.ap-nav-inner > * {
+  position: relative;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ap-nav-inner {
+    background: rgba(255, 255, 255, 0.94);
+  }
+}
+
+.ap-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.ap-brand img {
+  border-radius: 7px;
+}
+
+.ap-nav-button {
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--ap-ink);
+  color: #fff !important;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: background 0.2s ease, transform 0.2s var(--ap-ease);
+}
+
+.ap-nav-button:hover {
+  background: #000;
+}
+
+.ap-nav-button:active {
+  transform: scale(0.96);
+}
+
+/* Type */
+.ap-eyebrow {
+  margin: 0 0 12px;
+  color: var(--ap-green);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.ap-display {
+  text-wrap: balance;
+  margin: 0;
+  font-size: clamp(46px, 9.5vw, 96px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.ap-title {
+  text-wrap: balance;
+  margin: 0;
+  font-size: clamp(34px, 5.6vw, 58px);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.ap-lead {
+  text-wrap: balance;
+  max-width: 32ch;
+  margin: 22px auto 0;
+  color: var(--ap-ink-soft);
+  font-size: clamp(19px, 2.4vw, 24px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.ap-body {
+  text-wrap: balance;
+  max-width: 30em;
+  margin: 18px 0 0;
+  color: var(--ap-ink-soft);
+  font-size: clamp(17px, 1.8vw, 20px);
+  line-height: 1.55;
+}
+
+.ap-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ap-fine {
+  margin: 22px 0 0;
+  color: var(--ap-ink-soft);
+  font-size: 14px;
+}
+
+/* Actions */
+.ap-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 26px;
+  margin-top: 32px;
+}
+
+/* Google's badge, unaltered: 56px tall, with more than the quarter-height clear space Google asks for. */
+.ap-badge {
+  display: inline-block;
+  line-height: 0;
+  border-radius: 10px;
+  transition: transform 0.2s var(--ap-ease), opacity 0.2s ease;
+}
+
+.ap-badge img {
+  width: auto;
+  height: 56px;
+}
+
+.ap-badge:hover {
+  opacity: 0.88;
+}
+
+.ap-badge:active {
+  transform: scale(0.97);
+}
+
+.ap-badge:focus-visible,
+.ap-nav-button:focus-visible,
+.ap-text-link:focus-visible,
+.ap-question summary:focus-visible,
+.ap-footer a:focus-visible {
+  outline: 3px solid rgba(38, 115, 90, 0.45);
+  outline-offset: 3px;
+}
+
+.ap-text-link {
+  color: var(--ap-green) !important;
+  font-size: 17px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.ap-text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The phone: a slim black frame around the app's own recording. */
+.ap-phone {
+  width: 100%;
+  padding: 9px;
+  border-radius: 46px;
+  background: #121212;
+  box-shadow:
+    0 40px 80px -30px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.ap-screen {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  border-radius: 37px;
+  background: #fff;
+  object-fit: cover;
+}
+
+/* Hero */
+.ap-hero {
+  padding: 52px 16px 0;
+  text-align: center;
+}
+
+.ap-hero-phone {
+  width: min(78vw, 330px);
+  margin: 64px auto 0;
+}
+
+/* Stories: text and phone side by side on a wide screen, alternating sides. */
+.ap-story {
+  display: grid;
+  gap: 48px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 120px 24px 0;
+  text-align: center;
+}
+
+.ap-story .ap-body {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ap-story-phone {
+  width: min(74vw, 310px);
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .ap-story {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding-top: 160px;
+    text-align: left;
+  }
+
+  .ap-story .ap-body {
+    margin-left: 0;
+  }
+
+  .ap-story:nth-of-type(even) .ap-story-text {
+    order: 2;
+  }
+}
+
+/* Listen, and the numbers */
+.ap-band {
+  margin-top: 160px;
+  padding: 112px 24px 104px;
+  background: var(--ap-band);
+  text-align: center;
+}
+
+.ap-band-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.ap-numbers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 24px;
+  max-width: 1000px;
+  margin: 72px auto 0;
+}
+
+.ap-numbers div:last-child {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 760px) {
+  .ap-numbers {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .ap-numbers div:last-child {
+    grid-column: auto;
+  }
+}
+
+.ap-numbers dt {
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.ap-numbers dd {
+  margin: 10px 0 0;
+  color: var(--ap-ink-soft);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+/* Privacy */
+.ap-private {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 136px 24px 0;
+  text-align: center;
+}
+
+.ap-private .ap-text-link {
+  display: inline-block;
+  margin-top: 22px;
+}
+
+/* Questions */
+.ap-questions {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 136px 24px 0;
+}
+
+.ap-questions .ap-title {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.ap-question {
+  border-bottom: 1px solid var(--ap-line);
+}
+
+.ap-question summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ap-question summary::-webkit-details-marker {
+  display: none;
+}
+
+.ap-question summary::after {
+  content: "+";
+  color: var(--ap-ink-soft);
+  font-weight: 400;
+  transition: transform 0.25s var(--ap-ease);
+}
+
+.ap-question[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.ap-question p {
+  margin: -6px 0 22px;
+  color: var(--ap-ink-soft);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+/* The close */
+.ap-closing {
+  margin-top: 136px;
+  padding: 112px 24px;
+  background: var(--ap-band);
+  text-align: center;
+}
+
+.ap-closing-icon {
+  display: block;
+  margin: 0 auto 28px;
+  border-radius: 20px;
+}
+
+.ap-closing .ap-badge {
+  margin-top: 32px;
+}
+
+.ap-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 22px;
+  padding: 24px 16px 40px;
+  font-size: 14px;
+}
+
+.ap-footer a {
+  display: inline-block;
+  padding: 12px 4px;
+  border-radius: 8px;
+  color: var(--ap-ink-soft);
+  text-decoration: none;
+}
+
+.ap-footer a:hover {
+  color: var(--ap-ink);
+}
+
+/* Motion: the hero rises in once, and each part fades up as it scrolls into view. Browsers without
+   scroll-linked animation, and anyone who asks for less motion, simply see the page. */
+@keyframes ap-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ap-hero > * {
+    animation: ap-rise 0.9s var(--ap-ease) both;
+  }
+
+  .ap-hero > :nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .ap-hero > :nth-child(3) {
+    animation-delay: 0.2s;
+  }
+
+  .ap-hero > .ap-hero-phone {
+    animation-duration: 1.2s;
+    animation-delay: 0.3s;
+  }
+
+  @supports (animation-timeline: view()) {
+    .app-page [data-reveal] {
+      animation: ap-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+.ap-fine-link {
+  font-size: inherit;
+}
