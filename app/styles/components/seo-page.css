@@ -158,6 +158,22 @@
   margin-bottom: 40px;
 }
 
+/* Android only for now: the head script marks Android. */
+.seo-play-link {
+  display: none;
+}
+
+html[data-android] .seo-play-link {
+  display: block;
+  width: fit-content;
+  margin: 8px auto 0;
+  padding: 14px 16px;
+  color: #6fd4b1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
 /* ---- Navigation ---- */
 .seo-nav {
   display: flex;

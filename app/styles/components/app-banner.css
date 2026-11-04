@@ -1,0 +1,103 @@
+/* The Android app's banner: in the page's flow, so it covers nothing and scrolls away with the page.
+   It takes each theme's colours, and its button is the reader's Play button. */
+.app-banner {
+  display: none;
+}
+
+html[data-app-banner="show"] .app-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px 10px 4px;
+  border-bottom: 1px solid var(--stroke);
+  background: var(--card-strong);
+  color: var(--text);
+}
+
+/* Play's colours in these two themes are too faint for text this small. */
+:root[data-theme="mist"] .app-banner {
+  --reader-control-play-bg: var(--text);
+  --reader-control-play-text: var(--bg-deep);
+}
+
+:root[data-theme="sky"] .app-banner {
+  --reader-control-play-bg: #1b6b80;
+}
+
+/* Surah, ayah and information pages are dark whatever the theme, so the banner on them is too. */
+html[data-app-banner="show"] body:has(.seo-page) .app-banner {
+  --stroke: rgba(255, 255, 255, 0.1);
+  --text: #f2eee6;
+  --muted: #a8b0ba;
+  --accent: #d8b36a;
+  --reader-control-play-bg: linear-gradient(135deg, #2e6a5f 0%, #235a52 100%);
+  --reader-control-play-text: #f4fffb;
+  background: #0e1418;
+}
+
+/* The app's own page already says all this. */
+body:has(.app-page) .app-banner {
+  display: none;
+}
+
+.app-banner-close {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.app-banner-icon {
+  flex: none;
+  border-radius: 10px;
+}
+
+.app-banner-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.app-banner-text strong {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.app-banner-text span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.app-banner-get {
+  flex: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--reader-control-play-bg, var(--gradient-primary));
+  color: var(--reader-control-play-text);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-banner-close:focus-visible,
+.app-banner-get:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media print {
+  html[data-app-banner="show"] .app-banner {
+    display: none;
+  }
+}

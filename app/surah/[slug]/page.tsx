@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SURAH_BY_SLUG, SURAHS, SURAH_BY_NUMBER } from "../../data/surahs";
 import type { Metadata } from "next";
 import { loadFirstVerseSeoText, loadSurahSeoText } from "../../lib/seoQuranText";
+import SeoPlayLink from "../../components/common/SeoPlayLink";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -150,6 +151,7 @@ export default async function SurahPage({ params }: Props) {
           <Link href="/" className="seo-cta">
             Open in Reader &rarr;
           </Link>
+          <SeoPlayLink />
         </div>
 
         {/* All Ayah Links */}

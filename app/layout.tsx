@@ -4,6 +4,8 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import AppBanner from "./components/common/AppBanner";
+import { appBannerInitScript } from "./lib/appBanner";
 import { DEFAULT_LOCALE } from "./lib/locales";
 
 export const metadata: Metadata = {
@@ -150,12 +152,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <link rel="icon" href="/favicon-48x48.png" sizes="48x48" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <Script src="/theme-init.js" strategy="beforeInteractive" />
+        <script dangerouslySetInnerHTML={{ __html: appBannerInitScript }} />
       </head>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <AppBanner />
         {children}
         <Analytics />
         <SpeedInsights />
