@@ -56,48 +56,6 @@
   animation: study-pulse-glow 6s ease-in-out 1;
 }
 
-.study-btn-wrapper {
-  position: relative;
-}
-
-@keyframes study-tooltip-in {
-  0% { opacity: 0; transform: translateY(4px); }
-  15% { opacity: 1; transform: translateY(0); }
-  85% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(4px); }
-}
-
-.study-tooltip {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  white-space: nowrap;
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: #d8fff0;
-  background: rgba(22, 30, 36, 0.92);
-  border: 1px solid rgba(111, 212, 177, 0.25);
-  border-radius: 8px;
-  padding: 8px 12px;
-  pointer-events: auto;
-  cursor: pointer;
-  animation: study-tooltip-in 6s ease-in-out forwards;
-  z-index: 100;
-}
-
-.study-tooltip::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  right: 16px;
-  width: 8px;
-  height: 8px;
-  background: rgba(22, 30, 36, 0.92);
-  border-top: 1px solid rgba(111, 212, 177, 0.25);
-  border-left: 1px solid rgba(111, 212, 177, 0.25);
-  transform: rotate(45deg);
-}
-
 /* =============================================
    Logo
    ============================================= */
@@ -248,13 +206,5 @@
 
     :root[data-theme="bw"] .study-btn-wrapper .action-btn {
         background: rgba(0, 0, 0, 0.07);
-    }
-
-    .study-tooltip {
-        right: 0;
-        max-width: min(260px, calc(100vw - 32px));
-        white-space: normal;
-        line-height: 1.35;
-        text-wrap: balance;
     }
 }

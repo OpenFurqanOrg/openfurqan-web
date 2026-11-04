@@ -171,11 +171,6 @@ function HomeContent() {
             <button className={`action-btn${showStudyPulse ? " study-pulse" : ""}`} onClick={handleStudyModeClick}>
               Study mode
             </button>
-            {showStudyPulse && (
-              <span className="study-tooltip" onClick={handleStudyModeClick}>
-                Study, memorization, dictionary &amp; more
-              </span>
-            )}
           </div>
           <div className="topbar-icon-btns desktop-only">
             <button
@@ -201,11 +196,6 @@ function HomeContent() {
             <button className={`action-btn${showStudyPulse ? " study-pulse" : ""}`} onClick={handleStudyModeClick}>
               Study mode
             </button>
-            {showStudyPulse && (
-              <span className="study-tooltip" onClick={handleStudyModeClick}>
-                Study, memorization, dictionary &amp; more
-              </span>
-            )}
           </div>
         </div>
       </div>
