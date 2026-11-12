@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { loadFirstVerseSeoText, loadSurahSeoText } from "../../lib/seoQuranText";
 import SeoPlayLink from "../../components/common/SeoPlayLink";
 
+export const dynamicParams = false;
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
@@ -28,8 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `Surah ${surah.englishName} (${surah.arabicName}) — ${surah.translation}`;
   const description = snippet
-    ? `"${snippet}${firstVerse!.en.length > 120 ? "..." : ""}" — Read all ${surah.ayahCount} ayahs of Surah ${surah.englishName} with Arabic text, translations in English, Bangla & Urdu, audio & tafsir.`
-    : `Read Surah ${surah.englishName} (${surah.translation}) with translations in English, Bangla & Urdu. ${surah.ayahCount} ayahs, ${surah.revelationType} surah. Sahih International, Yusuf Ali, Pickthall, Muhiuddin Khan & more.`;
+    ? `"${snippet}${firstVerse!.en.length > 120 ? "..." : ""}" — Surah ${surah.englishName}: all ${surah.ayahCount} ayahs in Arabic with English translation.`
+    : `Read all ${surah.ayahCount} ayahs of Surah ${surah.englishName} (${surah.translation}) in Arabic with English translation.`;
 
   return {
     title,
@@ -91,8 +93,6 @@ export default async function SurahPage({ params }: Props) {
     description: `${surah.translation} — ${surah.ayahCount} ayahs, ${surah.revelationType} surah`,
     position: surah.number,
     url: `https://openfurqan.com/surah/${slug}`,
-    datePublished: "2024-01-01",
-    dateModified: "2026-03-06",
     isPartOf: {
       "@type": "Book",
       name: "The Holy Quran",
@@ -107,30 +107,27 @@ export default async function SurahPage({ params }: Props) {
   };
 
   return (
-    <div className="seo-page">
+    <div className="seo-page seo-reading-page">
+      <link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/scheherazade-new@latest/arabic-400-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(chapterJsonLd) }} />
 
       <div className="seo-container">
+        <Link href="/" className="seo-wordmark" aria-label="OpenFurqan home">
+          Open<span>Furqan</span>
+        </Link>
         {/* Header */}
         <header className="seo-header">
-          <div className="seo-surah-badge">
-            <span>{surah.revelationType}</span>
-            <span className="seo-meta-dot">&middot;</span>
-            <span>Surah {surah.number}</span>
-          </div>
-          <h2 className="seo-arabic-title">{surah.arabicName}</h2>
+          <p className="seo-arabic-title" lang="ar" dir="rtl">{surah.arabicName}</p>
           <h1 className="seo-english-title">Surah {surah.englishName}</h1>
           <p className="seo-translation">{surah.translation}</p>
           <div className="seo-meta">
-            <span>{surah.ayahCount} Ayahs</span>
-            <span className="seo-meta-dot">&middot;</span>
             <span>{surah.revelationType}</span>
+            <span className="seo-meta-dot" aria-hidden="true">&middot;</span>
+            <span>Surah {surah.number}</span>
+            <span className="seo-meta-dot" aria-hidden="true">&middot;</span>
+            <span>{surah.ayahCount} ayahs</span>
           </div>
-          <p className="seo-verse-english seo-context-copy">
-            Surah {surah.englishName} is chapter {surah.number} of the Quran. This page shows the full surah text
-            in Arabic with translation and links to every ayah for full reading, audio, and study tools.
-          </p>
         </header>
 
         {/* Full Surah Verses */}
@@ -140,7 +137,7 @@ export default async function SurahPage({ params }: Props) {
               <div className="seo-verse-ref">
                 <Link href={`/surah/${slug}/${v.num}`}>{surah.number}:{v.num}</Link>
               </div>
-              <p className="seo-verse-arabic">{v.ar}</p>
+              <p className="seo-verse-arabic" lang="ar" dir="rtl">{v.ar}</p>
               <p className="seo-verse-english">{v.en}</p>
             </article>
           ))}
@@ -148,7 +145,7 @@ export default async function SurahPage({ params }: Props) {
 
         {/* CTA */}
         <div className="seo-cta-section">
-          <Link href="/" className="seo-cta">
+          <Link href={`/?surah=${surah.number}`} className="seo-cta">
             Open in Reader &rarr;
           </Link>
           <SeoPlayLink />

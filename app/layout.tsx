@@ -116,8 +116,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
       "Free, open-source Quran reader and study app with Tafsir, Tajweed color-coding, word-by-word analysis, Hifz memorization, Lane's Lexicon, reading stats, and prayer times.",
     applicationCategory: "EducationalApplication",
     operatingSystem: "Any",
-    datePublished: "2024-01-01",
-    dateModified: "2026-03-06",
     inLanguage: ["ar", "en", "bn", "ur"],
     offers: {
       "@type": "Offer",

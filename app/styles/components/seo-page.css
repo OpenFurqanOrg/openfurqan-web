@@ -28,25 +28,14 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.seo-surah-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: 100px;
-  background: rgba(216, 179, 106, 0.08);
-  color: #d8b36a;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
 .seo-arabic-title {
-  font-size: 2.5rem;
-  color: rgba(242, 238, 230, 0.2);
-  margin: 0 0 8px;
+  font-family: "Scheherazade New", "Traditional Arabic", serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #a8b0ba;
+  margin: 0 0 4px;
   direction: rtl;
-  line-height: 1.4;
+  line-height: 1.25;
 }
 
 .seo-english-title {
@@ -72,7 +61,70 @@
 }
 
 .seo-meta-dot {
-  color: rgba(255, 255, 255, 0.15);
+  color: inherit;
+}
+
+/* Compact reading headers; information pages keep their existing spacing. */
+.seo-reading-page .seo-container {
+  padding-top: 24px;
+}
+
+.seo-wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 8px;
+  color: #f2eee6;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+}
+
+.seo-wordmark span {
+  color: #66c7a8;
+  font-weight: 700;
+}
+
+.seo-wordmark:hover {
+  color: #d8b36a;
+}
+
+.seo-reading-page .seo-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+}
+
+.seo-reading-page .seo-english-title {
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+
+.seo-reading-page .seo-translation {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.seo-reading-page .seo-meta {
+  gap: 8px;
+  color: #a8b0ba;
+  line-height: 1.5;
+}
+
+.seo-header + .seo-verse,
+.seo-header + section > .seo-verse:first-child {
+  padding-top: 0;
+}
+
+@media (max-width: 600px) {
+  .seo-reading-page .seo-container {
+    padding-top: 8px;
+  }
+
+  .seo-reading-page .seo-english-title {
+    font-size: 1.5rem;
+  }
 }
 
 /* ---- Verse Block ---- */
@@ -91,6 +143,32 @@
   color: #d8b36a;
   margin-bottom: 16px;
   letter-spacing: 0.03em;
+  line-height: 16px;
+}
+
+.seo-verse-ref a,
+.seo-verse-ref a:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 14px 8px;
+  margin: -14px -8px;
+  vertical-align: middle;
+  color: #d8b36a;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.seo-verse-ref a:hover {
+  background: rgba(216, 179, 106, 0.1);
+}
+
+html .seo-reading-page .seo-wordmark:focus-visible,
+html .seo-reading-page .seo-verse-ref a:focus-visible {
+  outline: 2px solid #d8b36a;
+  outline-offset: 2px;
 }
 
 .seo-verse-arabic {
@@ -107,10 +185,6 @@
   font-size: 1.0625rem;
   line-height: 1.7;
   color: #a8b0ba;
-}
-
-.seo-context-copy {
-  margin-top: 12px;
 }
 
 .seo-context-section {
@@ -249,10 +323,10 @@ html[data-android] .seo-play-link {
   margin-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   font-size: 0.75rem;
-  color: #4a5568;
+  color: #a8b0ba;
 }
 
 .seo-footer a {
-  color: #7a8290;
+  color: #a8b0ba;
   text-decoration: none;
 }

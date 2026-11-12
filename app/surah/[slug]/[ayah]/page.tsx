@@ -10,6 +10,13 @@ type Props = {
   params: Promise<{ slug: string; ayah: string }>;
 };
 
+function describeVerse(englishName: string, surahNumber: number, ayahNumber: number, english?: string) {
+  const summary = `Surah ${englishName} ${surahNumber}:${ayahNumber} in Arabic with English translation.`;
+  return english
+    ? `"${english.slice(0, 160)}${english.length > 160 ? "..." : ""}" — ${summary}`
+    : summary;
+}
+
 export async function generateStaticParams() {
   return SURAHS.flatMap((surah) =>
     Array.from({ length: surah.ayahCount }, (_, index) => ({
@@ -31,12 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } catch {
     verse = null;
   }
-  const englishSnippet = verse?.en ? verse.en.slice(0, 160) : "";
-
   const title = `Surah ${surah.englishName} Ayah ${ayahNum} — ${surah.translation} (${surah.number}:${ayahNum})`;
-  const description = englishSnippet
-    ? `"${englishSnippet}${verse!.en.length > 160 ? "..." : ""}" — Surah ${surah.englishName} (${surah.arabicName}), Verse ${surah.number}:${ayahNum}. Read with Arabic text, translations in English, Bangla & Urdu, audio & tafsir.`
-    : `Read Surah ${surah.englishName} (${surah.arabicName}), Ayah ${ayahNum} with translations in English, Bangla & Urdu. Verse ${surah.number}:${ayahNum} — word-by-word analysis, audio recitation & tafsir.`;
+  const description = describeVerse(surah.englishName, surah.number, ayahNum, verse?.en);
 
   return {
     title,
@@ -113,11 +116,9 @@ export default async function AyahPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: `Surah ${surah.englishName} Ayah ${ayahNum} (${surah.number}:${ayahNum})`,
-    description: `Verse ${surah.number}:${ayahNum} of Surah ${surah.englishName} with translations in English, Bangla & Urdu`,
+    description: describeVerse(surah.englishName, surah.number, ayahNum, verse?.en),
     articleBody: verse ? `${verse.ar}\n\n${verse.en}` : undefined,
     url: `https://openfurqan.com/surah/${slug}/${ayahNum}`,
-    datePublished: "2024-01-01",
-    dateModified: "2026-03-06",
     isPartOf: {
       "@type": "Chapter",
       name: `Surah ${surah.englishName}`,
@@ -133,52 +134,47 @@ export default async function AyahPage({ params }: Props) {
   };
 
   return (
-    <div className="seo-page">
+    <div className="seo-page seo-reading-page">
+      <link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/scheherazade-new@latest/arabic-400-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(verseJsonLd) }} />
 
       <div className="seo-container">
+        <Link href="/" className="seo-wordmark" aria-label="OpenFurqan home">
+          Open<span>Furqan</span>
+        </Link>
         {/* Header */}
         <header className="seo-header">
-          <div className="seo-surah-badge">
-            <span>{surah.revelationType}</span>
-            <span className="seo-meta-dot">&middot;</span>
-            <span>Surah {surah.number}</span>
-          </div>
-          <h2 className="seo-arabic-title">{surah.arabicName}</h2>
+          <p className="seo-arabic-title" lang="ar" dir="rtl">{surah.arabicName}</p>
           <h1 className="seo-english-title">Surah {surah.englishName} — Ayah {ayahNum}</h1>
           <p className="seo-translation">{surah.translation}</p>
           <div className="seo-meta">
-            <span>{surah.ayahCount} Ayahs</span>
-            <span className="seo-meta-dot">&middot;</span>
-            <span>Verse {surah.number}:{ayahNum}</span>
+            <span>{surah.revelationType}</span>
+            <span className="seo-meta-dot" aria-hidden="true">&middot;</span>
+            <span>Surah {surah.number}</span>
+            <span className="seo-meta-dot" aria-hidden="true">&middot;</span>
+            <span>{surah.ayahCount} ayahs</span>
           </div>
         </header>
 
         {/* Verse Content */}
         {verse && (
           <article className="seo-verse">
-            <div className="seo-verse-ref">
-              {surah.number}:{ayahNum}
-            </div>
-            <p className="seo-verse-arabic">{verse.ar}</p>
+            <p className="seo-verse-arabic" lang="ar" dir="rtl">{verse.ar}</p>
             <p className="seo-verse-english">{verse.en}</p>
           </article>
         )}
         {nearbyVerses.length > 0 && (
           <section className="seo-context-section" aria-labelledby="ayah-context-title">
             <h2 id="ayah-context-title" className="seo-context-title">
-              Context in Surah {surah.englishName}
+              Nearby ayahs
             </h2>
-            <p className="seo-verse-english seo-context-copy">
-              Nearby ayahs help place verse {surah.number}:{ayahNum} in sequence and meaning.
-            </p>
             {nearbyVerses.map((contextVerse) => (
               <article key={contextVerse.num} className="seo-verse seo-verse-context">
                 <div className="seo-verse-ref">
                   <Link href={`/surah/${slug}/${contextVerse.num}`}>{surah.number}:{contextVerse.num}</Link>
                 </div>
-                <p className="seo-verse-arabic">{contextVerse.ar}</p>
+                <p className="seo-verse-arabic" lang="ar" dir="rtl">{contextVerse.ar}</p>
                 <p className="seo-verse-english">{contextVerse.en}</p>
               </article>
             ))}
@@ -187,7 +183,7 @@ export default async function AyahPage({ params }: Props) {
 
         {/* CTA */}
         <div className="seo-cta-section">
-          <Link href="/" className="seo-cta">
+          <Link href={`/?surah=${surah.number}&ayah=${ayahNum}`} className="seo-cta">
             Open in Reader &rarr;
           </Link>
           <SeoPlayLink />
