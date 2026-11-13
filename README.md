@@ -24,7 +24,7 @@ root, read tafsir beside the ayah, and turn the pages of the Mushaf as they are 
 
 ## Read
 - By surah, by juz, or page by page through the 604-page Mushaf, set in its own page fonts
-- Translations in nine languages, with word-by-word meanings and transliteration
+- Searchable translation catalog, with word-by-word meanings and transliteration
 - Tajweed colours, and six themes from Parchment to Dark
 
 ## Listen

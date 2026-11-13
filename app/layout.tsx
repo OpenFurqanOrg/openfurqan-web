@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import AppBanner from "./components/common/AppBanner";
 import { appBannerInitScript } from "./lib/appBanner";
 import { DEFAULT_LOCALE } from "./lib/locales";
+import { TRANSLATION_FEATURE } from "./lib/translations";
 
 export const metadata: Metadata = {
   title: {
@@ -123,7 +124,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       priceCurrency: "USD"
     },
     featureList: [
-      "19 Quran translations in 9 languages",
+      TRANSLATION_FEATURE,
       "9 audio reciters with adjustable playback speed",
       "Word-by-word Arabic analysis with roots and morphology",
       "16 color-coded Tajweed pronunciation rules",

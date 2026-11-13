@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import StudyAyahCard from "./StudyAyahCard";
 import { renderTajweedMarkup } from "./StudyModeHelpers";
 import { normalizeQuranDisplayArabic } from "../../lib/utils";
+import { TRANSLATIONS_BY_ID } from "../../lib/translations";
 import type {
   SelectedWordDetails,
   StudyMarks,
@@ -101,6 +102,7 @@ export default function StudyAyahList({
   onToggleHifzMark,
   showHifzMode
 }: StudyAyahListProps) {
+  const translationEdition = TRANSLATIONS_BY_ID.get(primaryTranslation);
   // Tajweed markup produces React nodes. Prepare it only when the Quran data or
   // display settings change so audio/focus updates can preserve prop identity
   // for every unaffected memoized card in long Surahs.
@@ -204,6 +206,8 @@ export default function StudyAyahList({
               showTajweed={showTajweed}
               arabicContent={arabicContent}
               translationText={translationText}
+              translationLanguage={translationEdition?.language}
+              translationDirection={translationEdition?.direction}
               showTranslation={showTranslation}
               transliterationText={ayah.transliteration || ""}
               showTransliteration={showTransliteration}
@@ -264,6 +268,7 @@ export default function StudyAyahList({
       selectedWordDetails?.surah,
       showTajweed,
       showTranslation,
+      translationEdition,
       showTransliteration,
       showWordByWord,
       studyMarks,

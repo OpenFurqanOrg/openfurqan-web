@@ -4,6 +4,7 @@ import { Fragment, memo, useCallback, useEffect, useRef, useState } from "react"
 import type { MouseEvent } from "react";
 import type { Ayah, Word, NowPlaying, ReaderRepeatMode, ReaderRepeatState } from "../../lib/types";
 import { normalizeQuranDisplayArabic } from "../../lib/utils";
+import { TRANSLATIONS_BY_ID } from "../../lib/translations";
 
 type AyahCardProps = {
   ayah: Ayah;
@@ -134,29 +135,6 @@ const AyahCard = memo(function AyahCard({
     },
     [ayah.number, onCycleRepeat, onSetRepeat, surahNumber]
   );
-
-  // Translation label map
-  const translationLabels: Record<string, string> = {
-    "en-sahih": "Sahih International",
-    "en-arberry": "A.J. Arberry",
-    "en-pickthall": "Pickthall",
-    "en-yusufali": "Yusuf Ali",
-    "en-taqi-usmani": "Mufti Taqi Usmani",
-    "en-haleem": "Abdel Haleem",
-    "en-muhsin-khan": "Al-Hilali & Khan",
-    "en-maarif-ul-quran": "Maarif-ul-Quran",
-    "en-ahmedraza": "Kanz al-Iman (English)",
-    "hi-hindi": "Hindi (Azizul Haq Al-Umari)",
-    "si-naseem-ismail": "Sinhala (Naseem Ismail)",
-    "fr-hamidullah": "French (Muhammad Hamidullah)",
-    "de-bubenheim": "German (Bubenheim & Elyas)",
-    "es-cortes": "Spanish (Julio Cortes)",
-    "tr-ates": "Turkish (Suleyman Ates)",
-    "bn-bengali": "Bangla (Muhiuddin Khan)",
-    "bn-hoque": "Bangla (Zohurul Hoque)",
-    "ur-kanzuliman": "Kanz al-Iman (Urdu)",
-    "bayan-ul-quran": "Bayan-ul-Quran"
-  };
 
   return (
     <>
@@ -365,12 +343,17 @@ const AyahCard = memo(function AyahCard({
       <div className="ayah-translations">
         {translationIds.map((translationId) => {
           const translation = ayah.translations?.[translationId];
+          const edition = TRANSLATIONS_BY_ID.get(translationId);
           return (
             <div key={translationId} className="translation-item">
               <span className="translation-label">
-                {translationLabels[translationId] || translationId}
+                <bdi>{edition?.label ?? translationId}</bdi>
               </span>
-              <p dir="auto" className={`ayah-translation${translationIds.length > 1 ? " multi" : ""}`}>
+              <p
+                lang={translation?.text ? edition?.language : undefined}
+                dir={translation?.text ? edition?.direction ?? "auto" : "auto"}
+                className={`ayah-translation${translationIds.length > 1 ? " multi" : ""}`}
+              >
                 {translation?.text || "Translation unavailable."}
               </p>
             </div>

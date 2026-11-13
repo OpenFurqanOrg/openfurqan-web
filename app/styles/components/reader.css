@@ -536,6 +536,7 @@
   font-size: calc(var(--text-base) * var(--translation-scale));
   line-height: 1.65;
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .ayah-transliteration {
@@ -954,12 +955,18 @@
 }
 
 .progress-fill {
-  width: 0;
+  width: 100%;
   height: 100%;
   border-radius: 3px;
   background: linear-gradient(90deg, var(--accent-2), var(--accent));
-  transition: width 0.5s ease;
-  will-change: width;
+  transform-origin: left center;
+  transition: transform 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill {
+    transition: none;
+  }
 }
 
 .progress-text {

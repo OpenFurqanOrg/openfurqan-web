@@ -19,6 +19,8 @@ a message saying so when it is missing.
 3. unpacks it into `.openfurqan-data/`, which git ignores.
 
 The server routes in `app/api/` then read from there. Later runs reuse what was downloaded.
+The translation picker uses metadata in `app/data/translation-editions.json`. The build stores
+translation text in a local SQLite database with one compressed chapter per edition.
 
 The Mushaf page fonts (QCF V2, one font per page) come in 30 parts, one per juz. A page shared by
 two juz belongs to the first.
@@ -28,8 +30,8 @@ two juz belongs to the first.
 A build always uses the versions in the lock, even when a newer release is out. To update:
 
 ```sh
-npm run data:update     # pins the latest release in data.lock.json
-git diff data.lock.json # review what changed
+npm run data:update     # pins the latest release and regenerates the translation catalog
+git diff data.lock.json app/data/translation-editions.json
 npm run data:prepare    # downloads and checks it
 ```
 

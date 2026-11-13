@@ -6,9 +6,23 @@ import { join } from "node:path";
 import { createRequire } from "node:module";
 import { deflateSync, gzipSync } from "node:zlib";
 import { safePath, sha256, unpackBundle, verify, verifiedSqlite } from "./data-bundles.mjs";
+import { LEGACY_TRANSLATIONS, translationCatalog } from "./data-config.mjs";
 const { DatabaseSync } = createRequire(import.meta.url)("node:sqlite");
 
 describe("published bundle integrity", () => {
+  it("keeps saved web editions and exposes each pinned catalog variant separately", () => {
+    const { bundles } = JSON.parse(readFileSync(new URL("../data.lock.json", import.meta.url), "utf8"));
+    const editions = translationCatalog(bundles);
+    const sourceIds = bundles.filter(bundle => bundle.kind === "translation").map(bundle => bundle.edition);
+    expect(editions.map(edition => edition.edition).sort()).toEqual(sourceIds.sort());
+    const byId = new Map(editions.map(edition => [edition.id, edition]));
+    for (const [id, edition] of Object.entries(LEGACY_TRANSLATIONS)) {
+      expect(byId.get(id)?.edition).toBe(edition);
+    }
+    expect(byId.get("en-haleem-alternate")?.edition).toBe("en-haleem");
+    expect(byId.get("bn-qurancom-213")?.language).toBe("bn");
+  });
+
   it("rejects changed downloaded and uncompressed bytes", () => {
     const sqlite = Buffer.from("SQLite fixture");
     const gzip = gzipSync(sqlite);

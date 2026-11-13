@@ -1222,6 +1222,7 @@
   color: var(--muted);
   margin: 0;
   padding-top: 16px;
+  overflow-wrap: anywhere;
 }
 
 .study-ayah-transliteration {

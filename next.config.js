@@ -21,19 +21,20 @@ const contentSecurityPolicy = [
 
 const CANONICAL_ORIGIN = "https://openfurqan.com";
 const LEGACY_PRODUCTION_HOSTS = ["www.openfurqan.com"];
+const TRANSLATION_DB = "./.openfurqan-data/current/translations.sqlite";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   outputFileTracingIncludes: {
     "/fonts/qcf-v2/*": ["./.openfurqan-data/current/fonts/qcf-v2/*.woff2"],
-    "/api/surah/*": ["./.openfurqan-data/current/quran-text.json", "./.openfurqan-data/current/translations/*.json"],
-    "/api/ayah/*": ["./.openfurqan-data/current/translations/*.json"],
-    "/api/page/*": ["./.openfurqan-data/current/quran-metadata-*.json", "./.openfurqan-data/current/quran-page-layouts/*.json", "./.openfurqan-data/current/translations/*.json"],
-    "/api/juz/*": ["./.openfurqan-data/current/quran-metadata-*.json", "./.openfurqan-data/current/translations/*.json"],
-    "/api/memorization/deck": ["./.openfurqan-data/current/quran-metadata-*.json", "./.openfurqan-data/current/quran-words.json", "./.openfurqan-data/current/quran-morphology.mustafa.txt", "./.openfurqan-data/current/translations/*.json"],
+    "/api/surah/*": ["./.openfurqan-data/current/quran-text.json", TRANSLATION_DB],
+    "/api/ayah/*": [TRANSLATION_DB],
+    "/api/page/*": ["./.openfurqan-data/current/quran-metadata-*.json", "./.openfurqan-data/current/quran-page-layouts/*.json", TRANSLATION_DB],
+    "/api/juz/*": ["./.openfurqan-data/current/quran-metadata-*.json", TRANSLATION_DB],
+    "/api/memorization/deck": ["./.openfurqan-data/current/quran-metadata-*.json", "./.openfurqan-data/current/quran-words.json", "./.openfurqan-data/current/quran-morphology.mustafa.txt", TRANSLATION_DB],
     "/api/search": ["./.openfurqan-data/current/quran-search-index.json", "./.openfurqan-data/current/quran-metadata-surah-name.json"],
-    "/api/tafsir": ["./.openfurqan-data/current/tafsir/**/*.json", "./.openfurqan-data/current/translations/*.json"],
+    "/api/tafsir": ["./.openfurqan-data/current/tafsir/**/*.json", TRANSLATION_DB],
     "/api/words/*": ["./.openfurqan-data/current/quran-words.json", "./.openfurqan-data/current/quran-morphology.mustafa.txt"],
     "/api/audio-timings/*/*": ["./.openfurqan-data/current/audio-timings/**/*.json"],
     "/api/lexicon/root/*": ["./.openfurqan-data/current/root-explorer/*.json", "./.openfurqan-data/current/lane-lexicon.json", "./.openfurqan-data/current/root-meanings.*.json", "./.openfurqan-data/current/quran-morphology.mustafa.txt"],

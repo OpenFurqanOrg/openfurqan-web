@@ -17,7 +17,6 @@ import {
   SETTINGS_TABS,
   SettingsSection,
   TranslationChips,
-  type Option,
   type Reciter
 } from "./SettingsModalParts";
 
@@ -30,7 +29,6 @@ type SettingsModalProps = {
   onClose: () => void;
   initialTab?: SettingsTabId;
   onTabChange?: (tab: SettingsTabId) => void;
-  translations: Option[];
   selectedTranslations?: string[];
   setSelectedTranslations: Dispatch<SetStateAction<string[]>>;
   showWordByWord: boolean;
@@ -64,7 +62,6 @@ function SettingsModal({
   initialTab = "display",
   onTabChange,
   // Translation
-  translations,
   selectedTranslations = ["en-arberry"],
   setSelectedTranslations,
   showWordByWord,
@@ -344,11 +341,8 @@ function SettingsModal({
                     {/* Translation Section */}
                     <SettingsSection title="Translations" delay={0.05}>
                       <TranslationChips
-                        options={translations || []}
                         selectedIds={selectedTranslations}
                         onChange={setSelectedTranslations}
-                        defaultId="en-arberry"
-                        className="translation-chips-scroll"
                       />
                     </SettingsSection>
 

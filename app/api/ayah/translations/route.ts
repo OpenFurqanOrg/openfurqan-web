@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { ALL_TRANSLATIONS } from "../../../lib/constants";
+import { ALL_TRANSLATIONS } from "../../../lib/translations";
 import { SURAHS } from "../../../data/surahs";
 import { getAyahTranslation } from "../../../lib/translationLoader";
 
@@ -25,21 +25,17 @@ export async function GET(request: NextRequest) {
 
   try {
     const translations: Record<string, { text: string }> = {};
-    await Promise.all(
-      ALL_TRANSLATIONS.map(async (translation) => {
-        const text = await getAyahTranslation(translation.id, surahNumber, ayahNumber);
-        if (text) {
-          translations[translation.id] = { text };
-        }
-      })
-    );
+    for (const { id } of ALL_TRANSLATIONS) {
+      const text = getAyahTranslation(id, surahNumber, ayahNumber);
+      if (text) translations[id] = { text };
+    }
 
     return NextResponse.json({
       surahNumber,
       ayahNumber,
       translations,
       translationOrder: ALL_TRANSLATIONS.map((t) => t.id)
-    });
+    }, { headers: { "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800" } });
   } catch (error) {
     console.error("API Error:", error);
     return NextResponse.json(

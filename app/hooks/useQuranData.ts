@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { fetchJSON } from "../lib/apiClient";
+import { fetchQuranScope } from "../lib/fetchQuranScope";
 import type { Ayah, Surah, WordByAyah, WordBySurah } from "../lib/types";
 
 type SurahDetail = {
@@ -155,7 +156,7 @@ export function useSurahDetails(
         params.set("v", "2");
         const url = `/api/surah/${surahId}?${params.toString()}`;
 
-        const payload = await fetchJSON<SurahDetail>(url, {
+        const payload = await fetchQuranScope<SurahDetail>(url, {
           ttl: 10 * 60 * 1000,
           retries: 2,
           retryDelay: 300,

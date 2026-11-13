@@ -4,7 +4,7 @@ import ReaderTextScaleControls from "./ReaderTextScaleControls";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useActions, useAudio, useBookmarkContext, usePreferences, useQuranData, useUIState } from "../../contexts";
-import { ALL_TRANSLATIONS, ARABIC_FONTS, AUDIO_RECITERS, NO_BISMILLAH_SURAHS } from "../../lib/constants";
+import { ARABIC_FONTS, AUDIO_RECITERS, NO_BISMILLAH_SURAHS } from "../../lib/constants";
 import type { Ayah } from "../../lib/types";
 import { clamp, normalizeQuranDisplayArabic, verseKey } from "../../lib/utils";
 import { AudioPlayer, BackToTop, InlineError, ProgressBar } from "../common";
@@ -324,7 +324,6 @@ export default function ReaderPanel() {
         onClose={() => openMobileSettings(false)}
         initialTab={settingsTab}
         onTabChange={setSettingsTab}
-        translations={ALL_TRANSLATIONS}
         selectedTranslations={selectedTranslations}
         setSelectedTranslations={setSelectedTranslations}
         showWordByWord={showWordByWord}

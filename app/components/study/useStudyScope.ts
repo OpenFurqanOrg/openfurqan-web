@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchJSON } from "../../lib/apiClient";
+import { fetchQuranScope } from "../../lib/fetchQuranScope";
 import type { MushafPageLayout } from "./StudyModeTypes";
 import type { StudyScopeAyah, StudyScopeResponse } from "./StudyScopeTypes";
 
@@ -36,7 +36,7 @@ export default function useStudyScope(studyScopeMode: "surah" | "juz" | "page", 
     setScopeLoading(true);
     setScopeError(null);
 
-    fetchJSON<StudyScopeResponse>(url, {
+    fetchQuranScope<StudyScopeResponse>(url, {
       ttl: 30 * 60 * 1000,
       retries: 1,
       retryDelay: 300,

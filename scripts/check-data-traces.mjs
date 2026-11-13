@@ -6,17 +6,17 @@ import { TAFSIRS } from "./data-config.mjs";
 // would omit. Check Next's actual deployment traces after every production build.
 const required = {
   "fonts/qcf-v2/[file]/route": ["fonts/qcf-v2/p1.woff2", "fonts/qcf-v2/p604.woff2"],
-  "api/surah/[id]/route": ["quran-text.json", "translations/en-arberry.json"],
-  "api/ayah/translations/route": ["translations/bn-bengali.json"],
-  "api/ayah/taqi-usmani/route": ["translations/en-taqi-usmani.json"],
-  "api/page/[id]/route": ["quran-metadata-ayah.json", "quran-metadata-page.json", "quran-page-layouts/page-001.json", "translations/en-arberry.json"],
-  "api/juz/[id]/route": ["quran-metadata-ayah.json", "quran-metadata-page.json", "quran-metadata-juz.json", "translations/en-arberry.json"],
+  "api/surah/[id]/route": ["quran-text.json", "translations.sqlite"],
+  "api/ayah/translations/route": ["translations.sqlite"],
+  "api/ayah/taqi-usmani/route": ["translations.sqlite"],
+  "api/page/[id]/route": ["quran-metadata-ayah.json", "quran-metadata-page.json", "quran-page-layouts/page-001.json", "translations.sqlite"],
+  "api/juz/[id]/route": ["quran-metadata-ayah.json", "quran-metadata-page.json", "quran-metadata-juz.json", "translations.sqlite"],
   "api/words/[id]/route": ["quran-words.json", "quran-morphology.mustafa.txt"],
   "api/audio-timings/[reciter]/[surah]/route": ["audio-timings/husary/001.json", "audio-timings/alafasy/114.json"],
   "api/lexicon/root/[root]/route": ["root-explorer/0631-062d-0645.json", "lane-lexicon.json", "root-meanings.primary.json", "root-meanings.qj.json", "quran-morphology.mustafa.txt"],
   "api/search/route": ["quran-search-index.json", "quran-metadata-surah-name.json"],
-  "api/tafsir/route": [...TAFSIRS.map(id => `tafsir/${id}/1.json`), "translations/en-maududi.json"],
-  "api/memorization/deck/route": ["quran-words.json", "quran-morphology.mustafa.txt", "quran-metadata-ayah.json", "quran-metadata-page.json", "quran-metadata-juz.json", "translations/en-haleem.json"],
+  "api/tafsir/route": [...TAFSIRS.map(id => `tafsir/${id}/1.json`), "translations.sqlite"],
+  "api/memorization/deck/route": ["quran-words.json", "quran-morphology.mustafa.txt", "quran-metadata-ayah.json", "quran-metadata-page.json", "quran-metadata-juz.json", "translations.sqlite"],
   "surah/[slug]/page": ["quran-seo/surah-001.json"],
   "surah/[slug]/[ayah]/page": ["quran-seo/surah-114.json"]
 };

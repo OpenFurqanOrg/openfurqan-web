@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const rawText = isLocalTafsirEdition(edition)
-      ? (await getAyahTranslation(edition, surah, ayah)) || ""
+      ? getAyahTranslation(edition, surah, ayah) || ""
       : await loadAyahText(edition, surah, ayah);
 
     const text = rawText ? cleanTafsirText(rawText) : "";

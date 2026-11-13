@@ -1,10 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { TRANSLATION_FEATURE } from "../lib/translations";
 
 export const metadata: Metadata = {
   title: "About OpenFurqan — Free Open-Source Quran Reader with Study Tools & Memorization",
   description:
-    "OpenFurqan is a free, open-source Quran reading web application with 20+ translations, 16 reciters, ayah image sharing, word-synced audio highlights, local Quran search, memorization, Tafsir, root lexicon, prayer times, and more.",
+    "OpenFurqan is a free, open-source Quran reader with a searchable translation catalog, 16 reciters, ayah image sharing, word-synced audio, local Quran search, memorization, tafsir, root lexicon, and prayer times.",
   alternates: {
     canonical: "/about"
   },
@@ -47,9 +48,9 @@ export default function AboutPage() {
       priceCurrency: "USD"
     },
     description:
-      "A free, open-source Quran reading web application with 20+ translations across 9+ languages, 16 audio reciters, local recitation notes, Surah/Juz/Page views, ayah image sharing, Anki-style spaced repetition memorization, word-by-word analysis, word-synced recitation highlights, local Quran search, Tajweed color-coding, Tafsir, prayer times, and study features.",
+      "A free, open-source Quran reader with a searchable translation catalog, 16 audio reciters, local recitation notes, Surah/Juz/Page views, ayah image sharing, spaced repetition, word-by-word analysis, Tajweed color-coding, tafsir, and prayer times.",
     featureList: [
-      "20+ Quran translations in 9+ languages",
+      TRANSLATION_FEATURE,
       "16 audio reciters with adjustable playback speed",
       "Word-synced audio highlighting for supported reciters",
       "Recitation notes with local WAV recording, replay, download, and delete",

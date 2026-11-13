@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const text = await getAyahTranslation("en-taqi-usmani", surah, ayah);
+  const text = getAyahTranslation("en-taqi-usmani", surah, ayah);
 
   if (!text) {
     return NextResponse.json(

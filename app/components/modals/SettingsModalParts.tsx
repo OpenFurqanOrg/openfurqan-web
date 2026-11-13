@@ -1,18 +1,15 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import type { ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ALL_TRANSLATIONS, DEFAULT_TRANSLATION_ID, searchTranslations } from "../../lib/translations";
 
-export type Option = { id: string; label: string; short?: string };
 export type Reciter = { id: string; label: string; baseUrl?: string };
 
 export type TranslationChipsProps = {
-  options: Option[];
   selectedIds: string[];
   onChange: (ids: string[]) => void;
-  defaultId?: string;
-  className?: string;
 };
 
 export type PremiumSliderProps = {
@@ -43,12 +40,17 @@ export const SETTINGS_TABS = [
 ] as const;
 
 export const TranslationChips = memo(function TranslationChips({
-  options,
   selectedIds,
-  onChange,
-  defaultId = "en-arberry",
-  className = ""
+  onChange
 }: TranslationChipsProps) {
+  const [query, setQuery] = useState("");
+  const selected = new Set(selectedIds);
+  const matches = query.trim() ? searchTranslations(query) : ALL_TRANSLATIONS;
+  const options = [
+    ...matches.filter(option => selected.has(option.id)),
+    ...matches.filter(option => !selected.has(option.id))
+  ];
+
   const toggleTranslation = (id: string) => {
     const isSelected = selectedIds.includes(id);
 
@@ -61,46 +63,45 @@ export const TranslationChips = memo(function TranslationChips({
   };
 
   return (
-    <div className={`translation-chips ${className}`.trim()}>
-      {options.map((option) => {
-        const isSelected = selectedIds.includes(option.id);
-        const isDefault = option.id === defaultId;
-
-        return (
-          <motion.button
-            key={option.id}
-            className={`translation-chip ${isSelected ? "selected" : ""} ${isDefault ? "default" : ""}`}
-            onClick={() => toggleTranslation(option.id)}
-            whileTap={{ scale: 0.97 }}
-            initial={false}
-            animate={{
-              backgroundColor: isSelected
-                ? "rgba(111, 212, 177, 0.18)"
-                : "rgba(255, 255, 255, 0.04)"
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            <span className="chip-label">{option.label}</span>
-            <AnimatePresence>
+    <div className="translation-picker">
+      <input
+        type="search"
+        className="settings-input translation-search"
+        aria-label="Search translations"
+        placeholder="Search by language or translator"
+        value={query}
+        onChange={event => setQuery(event.target.value)}
+      />
+      <div className="translation-chips translation-chips-scroll" role="group" aria-label="Translation editions">
+        {options.map(option => {
+          const isSelected = selected.has(option.id);
+          const isDefault = option.id === DEFAULT_TRANSLATION_ID;
+          return (
+            <button
+              key={option.id}
+              type="button"
+              className={`translation-chip${isSelected ? " selected" : ""}${isDefault ? " default" : ""}`}
+              aria-pressed={isSelected}
+              aria-disabled={isSelected && selectedIds.length === 1}
+              onClick={() => toggleTranslation(option.id)}
+            >
+              <span className="chip-label">
+                <bdi>{option.label}</bdi>
+                <span className="translation-chip-language">{option.languageName}</span>
+              </span>
               {isSelected && (
-                <motion.span
-                  className="chip-check"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                >
+                <span className="chip-check" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <path d="M5 12l5 5L20 7" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </motion.span>
+                </span>
               )}
-            </AnimatePresence>
-            {isDefault && <span className="default-badge">Default</span>}
-          </motion.button>
-        );
-      })}
-      <p className="chips-hint">Select one or more translations</p>
+              {isDefault && <span className="default-badge">Default</span>}
+            </button>
+          );
+        })}
+        {options.length === 0 && <p className="translation-search-empty" role="status">No translations match your search.</p>}
+      </div>
     </div>
   );
 });

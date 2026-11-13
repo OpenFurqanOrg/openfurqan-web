@@ -27,7 +27,7 @@ function ProgressBar({ current, total, label }: ProgressBarProps) {
         aria-valuemax={100}
         aria-valuenow={percentage}
       >
-        <div className="progress-fill" style={{ width: `${percentage}%` }} />
+        <div className="progress-fill" style={{ transform: `scaleX(${percentage / 100})` }} />
       </div>
       <span className="progress-text">{percentage}%</span>
     </div>

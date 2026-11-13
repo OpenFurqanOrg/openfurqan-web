@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { SURAHS } from "../../../data/surahs";
-import { ALL_TRANSLATIONS } from "../../../lib/constants";
+import { parseTranslationIds } from "../../../lib/translations";
 import { getTranslation } from "../../../lib/translationLoader";
 import { apiRateGuard } from "../../../lib/apiRateLimit";
 import { readDataJson } from "../../../lib/dataPath";
-
-const EDITIONS = ALL_TRANSLATIONS;
 
 const CACHE_HEADERS = {
   "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800"
@@ -70,22 +68,7 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
       transliterationParam
     );
 
-    const allowedTranslationIds = new Set(EDITIONS.map((e) => e.id));
-    const translationsParam = request.nextUrl.searchParams.get("translations") || "";
-    const requestedIds = translationsParam
-      .split(",")
-      .map((value) => value.trim())
-      .filter(Boolean)
-      .filter((value) => allowedTranslationIds.has(value));
-
-    const translationIds: string[] = [];
-    const seen = new Set<string>();
-    for (const translationId of (requestedIds.length ? requestedIds : ["en-arberry"])) {
-      if (seen.has(translationId)) continue;
-      if (!allowedTranslationIds.has(translationId)) continue;
-      seen.add(translationId);
-      translationIds.push(translationId);
-    }
+    const translationIds = parseTranslationIds(request.nextUrl.searchParams.get("translations"));
 
     // 1. Get surah metadata from local data
     const surahMeta = SURAHS.find((s) => s.number === surahNumber);
@@ -93,15 +76,13 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
       return NextResponse.json({ error: "Surah not found." }, { status: 404 });
     }
 
-    // 2. Load only requested translations from local files (in parallel)
-    const translationResults = await Promise.all(
-      translationIds.map(async (translationId) => ({
-        id: translationId,
-        verses: await getTranslation(translationId, surahNumber)
-      }))
-    );
+    // 2. Load only the requested chapters.
+    const translationResults = translationIds.map(id => ({
+      id,
+      verses: getTranslation(id, surahNumber)
+    }));
     const transliterationByAyah = includeTransliteration
-      ? await getTranslation("en-transliteration", surahNumber)
+      ? getTranslation("en-transliteration", surahNumber)
       : null;
 
     // 3. Read Arabic + tajweed + page from verified build-time data.

@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { ALL_TRANSLATIONS } from "../../../lib/constants";
+import { parseTranslationIds } from "../../../lib/translations";
 import { apiRateGuard } from "../../../lib/apiRateLimit";
 import { getPageLayout } from "../../../lib/quranPageLayoutLoader";
 import { getPagePayload } from "../../../lib/quranScopeLoader";
-
-const EDITIONS = ALL_TRANSLATIONS;
 
 const CACHE_HEADERS = {
   "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=604800"
@@ -13,28 +11,6 @@ const CACHE_HEADERS = {
 
 type RouteContext = {
   params: { id: string } | Promise<{ id: string }>;
-};
-
-const parseTranslationIds = (request: NextRequest): string[] => {
-  const allowedTranslationIds = new Set(EDITIONS.map((edition) => edition.id));
-  const translationsParam = request.nextUrl.searchParams.get("translations") || "";
-  const requestedIds = translationsParam
-    .split(",")
-    .map((value) => value.trim())
-    .filter(Boolean)
-    .filter((value) => allowedTranslationIds.has(value));
-
-  const translationIds: string[] = [];
-  const seen = new Set<string>();
-
-  for (const translationId of (requestedIds.length ? requestedIds : ["en-arberry"])) {
-    if (seen.has(translationId)) continue;
-    if (!allowedTranslationIds.has(translationId)) continue;
-    seen.add(translationId);
-    translationIds.push(translationId);
-  }
-
-  return translationIds;
 };
 
 export async function GET(request: NextRequest, { params }: RouteContext) {
@@ -55,7 +31,7 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
     const includeTransliteration = ["1", "true", "yes", "on"].includes(
       transliterationParam
     );
-    const translationIds = parseTranslationIds(request);
+    const translationIds = parseTranslationIds(request.nextUrl.searchParams.get("translations"));
     const payload = await getPagePayload(
       pageNumber,
       translationIds,

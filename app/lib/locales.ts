@@ -1,10 +1,10 @@
+import { TRANSLATIONS_BY_ID } from "./translations";
+
 export const SUPPORTED_LOCALES = ["en", "bn", "ur"] as const;
 export type AppLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export const DEFAULT_LOCALE: AppLocale = "en";
 export const LOCALE_COOKIE = "of_locale";
-
-const URDU_TRANSLATION_IDS = new Set(["bayan-ul-quran"]);
 
 const isEnglishLike = (value: string) => value.startsWith("en");
 const isBanglaLike = (value: string) => value.startsWith("bn");
@@ -26,9 +26,8 @@ export const normalizeLocale = (value?: string | null): AppLocale | null => {
 export const translationIdToLocale = (translationId: string): AppLocale | null => {
   const normalized = String(translationId || "").trim().toLowerCase();
   if (!normalized) return null;
-  if (normalized.startsWith("bn-")) return "bn";
-  if (normalized.startsWith("ur-") || URDU_TRANSLATION_IDS.has(normalized)) return "ur";
-  if (normalized.startsWith("en-")) return "en";
+  const language = TRANSLATIONS_BY_ID.get(normalized)?.language ?? normalized.split("-")[0];
+  if (isSupportedLocale(language)) return language;
   return null;
 };
 

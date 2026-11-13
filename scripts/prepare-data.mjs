@@ -1,12 +1,19 @@
 import { existsSync, mkdirSync, readFileSync, renameSync, readdirSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BUNDLE_IDS, DATA_ORIGIN, TRANSLATIONS, TAFSIRS } from "./data-config.mjs";
+import { gzipSync } from "node:zlib";
+import { CORE_BUNDLE_IDS, DATA_ORIGIN, TAFSIRS, translationCatalog } from "./data-config.mjs";
 import { sha256, verify, fetchBytes, verifiedSqlite, unpackBundle, readJson, write, writeJson } from "./data-bundles.mjs";
+import { DatabaseSync } from "node:sqlite";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const storage = join(root, ".openfurqan-data");
 const lockPath = join(root, "data.lock.json");
+const catalogPath = join(root, "app/data/translation-editions.json");
+const translationMetadata = editions => editions.map(
+  ({ id, label, author, language, languageName, nativeLanguageName, direction }) =>
+    ({ id, label, author, language, languageName, nativeLanguageName, direction })
+);
 // The data key: on Vercel an environment variable, locally the ignored .env.local.
 if (existsSync(join(root, ".env.local"))) process.loadEnvFile(join(root, ".env.local"));
 const downloadOrigin = new URL(process.env.OPENFURQAN_DATA_MIRROR || DATA_ORIGIN);
@@ -17,21 +24,35 @@ if (process.argv.includes("--update-lock")) {
   const manifest = await fetchBytes(new URL("bundles.json", downloadOrigin));
   const listing = JSON.parse(manifest);
   if (listing.schemaVersion !== 1) throw new Error("Unsupported bundle manifest");
-  const bundles = BUNDLE_IDS.map(id => {
-    const b = listing.bundles.find(b => b.id === id);
+  const published = new Map(listing.bundles.map(bundle => [bundle.id, bundle]));
+  const bundleIds = [...CORE_BUNDLE_IDS, ...listing.bundles.filter(b => b.kind === "translation").map(b => b.id)].sort();
+  const bundles = bundleIds.map(id => {
+    const b = published.get(id);
     if (!b) throw new Error(`Required bundle not published: ${id}`);
-    return b;
+    if (b.kind !== "translation") return b;
+    const { id: bundleId, kind, format, edition, parts, catalog } = b;
+    const { name, author, authorLatin, authorNative, language, languageName, languageNativeName, direction } = catalog;
+    return {
+      id: bundleId, kind, format, edition, parts,
+      catalog: { name, author, authorLatin, authorNative, language, languageName, languageNativeName, direction }
+    };
   });
+  const catalog = JSON.stringify(translationMetadata(translationCatalog(bundles)), null, 2) + "\n";
   // One line per bundle makes each intentional data update easy to review.
   write(lockPath, '{\n  "schemaVersion": 1,\n  "origin": ' + JSON.stringify(DATA_ORIGIN) + ',\n  "manifestSha256": ' + JSON.stringify(sha256(manifest)) + ',\n  "bundles": [\n' + bundles.map(b => '    ' + JSON.stringify(b)).join(',\n') + '\n  ]\n}\n');
-  console.log(`Pinned ${bundles.length} bundles. Review data.lock.json before committing.`);
+  write(catalogPath, catalog);
+  console.log(`Pinned ${bundles.length} bundles and updated the translation catalog.`);
   process.exit(0);
 }
 
 const lockBytes = readFileSync(lockPath);
 const lock = JSON.parse(lockBytes);
 if (lock.schemaVersion !== 1 || lock.origin !== DATA_ORIGIN) throw new Error("Unsupported data lock");
-if (JSON.stringify(lock.bundles.map(b => b.id).sort()) !== JSON.stringify(BUNDLE_IDS)) throw new Error("Bundle lock does not match required editions. Run npm run data:update and review it.");
+if (JSON.stringify(lock.bundles.filter(b => b.kind !== "translation").map(b => b.id).sort()) !== JSON.stringify(CORE_BUNDLE_IDS)) throw new Error("Bundle lock does not match required datasets. Run npm run data:update and review it.");
+const editions = translationCatalog(lock.bundles);
+if (JSON.stringify(readJson(catalogPath)) !== JSON.stringify(translationMetadata(editions))) {
+  throw new Error("Translation catalog does not match the data lock. Run npm run data:update and review it.");
+}
 const adapter = ["prepare-data.mjs", "data-config.mjs", "data-bundles.mjs", "timing-provenance.json"].map(f => readFileSync(join(root, "scripts", f)));
 const fingerprint = sha256(Buffer.concat([lockBytes, ...adapter]));
 const current = join(storage, "current");
@@ -69,7 +90,7 @@ await Promise.all(Array.from({ length: 4 }, async () => {
         write(gzipPath, packed); downloaded += packed.length;
       }
       const sqlite = verifiedSqlite(packed, part);
-      const sqlitePath = join(storage, "bundles", part.sqliteSha256 + ".sqlite");
+      const sqlitePath = join(raw, ".sqlite", part.sqliteSha256 + ".sqlite");
       write(sqlitePath, sqlite);
       unpackBundle(sqlitePath, bundle.format, raw);
     }
@@ -127,13 +148,29 @@ for (const reciter of ["husary", "alafasy"]) for (const name of readdirSync(join
   timing.source = timingProvenance[reciter][name.replace(".json", "")];
   save(`audio-timings/${reciter}/${name}`, timing);
 }
-for (const [id, edition] of Object.entries(TRANSLATIONS)) {
-  const surahs = Array.from({ length: 114 }, (_, i) => {
-    const s = i + 1;
-    const entries = read(`translations/${edition}/${s}.json`).ayahs;
-    return { id: s, total_verses: entries.length, verses: entries.map(a => ({ id: a.ayah, translation: a.text ?? "" })) };
-  });
-  save(`translations/${id}.json`, { translator: edition, source: DATA_ORIGIN, surahs });
+// Keep the full catalog under the function bundle limit with one indexed,
+// independently compressed chapter per edition.
+const translationDb = new DatabaseSync(join(stage, "translations.sqlite"));
+try {
+  translationDb.exec(`CREATE TABLE chapter (
+    surah INTEGER NOT NULL, edition TEXT NOT NULL, verses BLOB NOT NULL,
+    PRIMARY KEY (surah, edition)
+  ) WITHOUT ROWID; BEGIN`);
+  const insertChapter = translationDb.prepare("INSERT INTO chapter VALUES (?, ?, ?)");
+  for (const { id, edition } of editions) {
+    for (let surah = 1; surah <= 114; surah++) {
+      const entries = read(`translations/${edition}/${surah}.json`).ayahs;
+      if (entries.length !== Object.keys(quran[surah]).length ||
+          entries.some((entry, index) => entry.ayah !== index + 1)) {
+        throw new Error(`Incomplete translation: ${edition}, surah ${surah}`);
+      }
+      const verses = entries.map(entry => entry.text ?? "");
+      insertChapter.run(surah, id, gzipSync(JSON.stringify(verses)));
+    }
+  }
+  translationDb.exec("COMMIT");
+} finally {
+  translationDb.close();
 }
 for (const edition of TAFSIRS) for (let s = 1; s <= 114; s++) copy(`tafsir/${edition}/${s}.json`, `tafsir/${edition}/${s}.json`);
 const files = {};

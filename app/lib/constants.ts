@@ -111,33 +111,6 @@ export const ARABIC_FONTS = [
   }
 ];
 
-// Translations
-export const INLINE_TRANSLATIONS = [
-  { id: "en-sahih", label: "Sahih International", short: "Sahih" },
-  { id: "en-arberry", label: "A.J. Arberry", short: "Arberry" },
-  { id: "en-pickthall", label: "Pickthall", short: "Pickthall" },
-  { id: "en-yusufali", label: "Yusuf Ali", short: "Yusuf Ali" }
-];
-
-export const ALL_TRANSLATIONS = [
-  ...INLINE_TRANSLATIONS,
-  { id: "en-taqi-usmani", label: "Mufti Taqi Usmani", short: "Taqi Usmani" },
-  { id: "en-haleem", label: "Abdel Haleem", short: "Haleem" },
-  { id: "en-muhsin-khan", label: "Al-Hilali & Khan", short: "Hilali & Khan" },
-  { id: "en-maarif-ul-quran", label: "Maarif-ul-Quran", short: "Maarif" },
-  { id: "en-ahmedraza", label: "Kanz al-Iman (English)", short: "Kanz (EN)" },
-  { id: "hi-hindi", label: "Hindi (Azizul Haq Al-Umari)", short: "Hindi" },
-  { id: "si-naseem-ismail", label: "Sinhala (Naseem Ismail)", short: "Sinhala" },
-  { id: "fr-hamidullah", label: "French (Muhammad Hamidullah)", short: "Francais" },
-  { id: "de-bubenheim", label: "German (Bubenheim & Elyas)", short: "Deutsch" },
-  { id: "es-cortes", label: "Spanish (Julio Cortes)", short: "Español" },
-  { id: "tr-ates", label: "Turkish (Suleyman Ates)", short: "Turkish" },
-  { id: "bn-bengali", label: "Bangla (Muhiuddin Khan)", short: "Bangla" },
-  { id: "bn-hoque", label: "Bangla (Zohurul Hoque)", short: "Hoque" },
-  { id: "ur-kanzuliman", label: "Kanz al-Iman (Urdu)", short: "Kanz (UR)" },
-  { id: "bayan-ul-quran", label: "Bayan-ul-Quran (Urdu)", short: "Bayan" }
-];
-
 // Prayer Settings (UI)
 export const PRAYER_COUNTRIES = [
   { code: "US", name: "United States" },

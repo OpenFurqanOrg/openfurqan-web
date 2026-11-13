@@ -348,6 +348,21 @@
 }
 
 /* ── Translation Chips — clean list rows ── */
+.translation-picker {
+  display: grid;
+  gap: 8px;
+}
+
+.translation-search {
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+.translation-search-empty {
+  color: var(--muted);
+  margin: 10px 12px;
+}
+
 .translation-chips {
   display: flex;
   flex-direction: column;
@@ -396,6 +411,14 @@
   font-size: 0.88rem;
   font-weight: 450;
   color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.translation-chip-language {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-top: 2px;
 }
 
 .translation-chip.selected .chip-label {
@@ -430,14 +453,6 @@
   padding: 2px 7px;
   border-radius: var(--radius-xs);
   margin-left: auto;
-}
-
-.chips-hint {
-  font-size: 0.72rem;
-  color: var(--muted);
-  opacity: 0.5;
-  margin-top: 6px;
-  text-align: center;
 }
 
 /* Multiple Translations Display in AyahCard */

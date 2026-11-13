@@ -1,6 +1,6 @@
 "use client";
 
-import { ALL_TRANSLATIONS } from "../../lib/constants";
+import { ALL_TRANSLATIONS, searchTranslations } from "../../lib/translations";
 import { fetchJSON } from "../../lib/apiClient";
 import {
   cleanTafsirText,
@@ -48,6 +48,7 @@ export default function CompareModal() {
   const selectedAyahNumber = selectedAyah?.number;
 
   const [activeTab, setActiveTab] = useState<CompareTab>("translations");
+  const [translationQuery, setTranslationQuery] = useState("");
   const [payload, setPayload] = useState<CompareAllPayload | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -313,6 +314,7 @@ export default function CompareModal() {
     if (!selectedAyahNumber) return;
 
     const onKey = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement && e.key !== "Escape") return;
       if (e.key === "Escape") {
         e.stopPropagation();
         onClose();
@@ -332,7 +334,8 @@ export default function CompareModal() {
 
   const formatArabic = (text?: string) => normalizeQuranDisplayArabic(text ?? "");
   const allTranslations = payload?.translations || {};
-  const availableTranslations = ALL_TRANSLATIONS.filter(
+  const matchingEditions = translationQuery.trim() ? searchTranslations(translationQuery) : ALL_TRANSLATIONS;
+  const availableTranslations = matchingEditions.filter(
     (translation) =>
       Boolean(allTranslations?.[translation.id]?.text) ||
       Boolean(selectedAyah.translations?.[translation.id]?.text)
@@ -508,6 +511,17 @@ export default function CompareModal() {
             </div>
             {activeTab === "translations" ? (
               <div className="compare-translations-list" aria-busy={loading}>
+                <input
+                  type="search"
+                  className="settings-input translation-search"
+                  aria-label="Search translations"
+                  placeholder="Search by language or translator"
+                  value={translationQuery}
+                  onChange={event => {
+                    setTranslationQuery(event.target.value);
+                    window.requestAnimationFrame(updateThumb);
+                  }}
+                />
                 {error && (
                   <p className="compare-translation-status error" role="alert">
                     {error}
@@ -533,8 +547,10 @@ export default function CompareModal() {
 
                     return (
                       <div key={translation.id} className="compare-translation-row">
-                        <p className="compare-translation-label">{translation.label}</p>
-                        <p dir="auto" className="compare-translation-text">
+                        <p className="compare-translation-label">
+                          <bdi>{translation.label}</bdi> · {translation.languageName}
+                        </p>
+                        <p lang={translation.language} dir={translation.direction} className="compare-translation-text">
                           {translationText}
                         </p>
                         <button
@@ -550,7 +566,9 @@ export default function CompareModal() {
                     );
                   })
                 ) : !error ? (
-                  <p className="compare-translation-status">No translations are available for this ayah.</p>
+                  <p className="compare-translation-status" role="status">
+                    {translationQuery.trim() ? "No translations match your search." : "No translations are available for this ayah."}
+                  </p>
                 ) : null}
               </div>
             ) : (

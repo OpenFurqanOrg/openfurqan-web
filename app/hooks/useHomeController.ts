@@ -3,8 +3,9 @@
 import { useNextPrayer } from "./home/useNextPrayer";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { fetchJSON } from "../lib/apiClient";
-import { ALL_TRANSLATIONS, STORAGE_KEYS } from "../lib/constants";
+import { fetchQuranScope } from "../lib/fetchQuranScope";
+import { STORAGE_KEYS } from "../lib/constants";
+import { TRANSLATIONS_BY_ID } from "../lib/translations";
 import {
 	defaultTranslationForLocale,
 	LOCALE_COOKIE,
@@ -54,10 +55,6 @@ export function useHomeController() {
   } = useSurahs();
   const [selectedSurah, setSelectedSurah] = useState<Surah | null>(null);
 
-  const availableTranslationIds = useMemo(
-    () => new Set(ALL_TRANSLATIONS.map((t) => t.id)),
-    []
-  );
 
   const [storedTranslations, setStoredTranslations, areTranslationsLoaded] = useLocalStorage(
     STORAGE_KEYS.translations,
@@ -88,14 +85,14 @@ export function useHomeController() {
 
     for (const id of input) {
       if (typeof id !== "string") continue;
-      if (!availableTranslationIds.has(id)) continue;
+      if (!TRANSLATIONS_BY_ID.has(id)) continue;
       if (seen.has(id)) continue;
       seen.add(id);
       unique.push(id);
     }
 
     return unique.length ? unique : ["en-arberry"];
-  }, [availableTranslationIds, storedTranslations]);
+  }, [storedTranslations]);
 
   // Keep localStorage tidy if older/invalid IDs were stored.
   useEffect(() => {
@@ -271,7 +268,7 @@ export function useHomeController() {
     setReaderScopeLoading(true);
     setReaderScopeError(null);
 
-    fetchJSON<{ scope?: ScopeMeta; ayahs?: ScopeAyah[]; layout?: MushafPageLayout }>(url, {
+    fetchQuranScope<{ scope?: ScopeMeta; ayahs?: ScopeAyah[]; layout?: MushafPageLayout }>(url, {
       ttl: 30 * 60 * 1000,
       retries: 1,
       retryDelay: 300,

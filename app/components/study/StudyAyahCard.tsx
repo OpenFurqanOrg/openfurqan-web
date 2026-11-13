@@ -34,6 +34,8 @@ type StudyAyahCardProps = {
   arabicContent: ReactNode;
   showTajweed: boolean;
   translationText: string;
+  translationLanguage?: string;
+  translationDirection?: string;
   showTranslation: boolean;
   transliterationText: string;
   showTransliteration: boolean;
@@ -75,6 +77,8 @@ function StudyAyahCardComponent({
   arabicContent,
   showTajweed,
   translationText,
+  translationLanguage,
+  translationDirection,
   showTranslation,
   transliterationText,
   showTransliteration,
@@ -545,7 +549,7 @@ function StudyAyahCardComponent({
           <p className="study-ayah-transliteration">{transliterationText}</p>
         ) : null}
         {!isMushafView && !isPageView && showTranslation && translationText && (
-          <p className="study-ayah-translation">
+          <p className="study-ayah-translation" lang={translationLanguage} dir={translationDirection ?? "auto"}>
             {translationText}
           </p>
         )}

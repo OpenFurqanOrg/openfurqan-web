@@ -66,21 +66,13 @@ Privacy and offline use:
 
 - 114 Surahs (chapters) of the Holy Quran
 - 6,236 Ayahs (verses) with full Arabic text
-- 20+ translations across 9+ languages
+- Searchable catalog of Quran translation editions
 - Word-by-word Arabic analysis with root dictionary
 - Quran search support for Arabic, translation, transliteration, gloss, roots, lemmas, and surah names
 
 ## Web App Translations
 
-English: Sahih International, Yusuf Ali, Pickthall, Arberry, Haleem, Muhsin Khan, Taqi Usmani, Ahmed Raza, Maarif-ul-Quran, Transliteration
-Bangla: Muhiuddin Khan, Zohurul Hoque
-Urdu: Bayan-ul-Quran, Kanz al-Iman
-German: Bubenheim
-Spanish: Cortes
-French: Hamidullah
-Hindi: Al-Umari
-Turkish: Suleyman Ates
-Sinhala: Naseem Ismail
+Search by language or translator in Settings to choose editions for the reader. The Compare button on each ayah opens its translations.
 
 ## Web App Audio Reciters (16)
 

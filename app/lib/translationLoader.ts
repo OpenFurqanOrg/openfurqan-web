@@ -1,78 +1,43 @@
 import "server-only";
-import { readFile } from "fs/promises";
+import { DatabaseSync, type StatementSync } from "node:sqlite";
+import { gunzipSync } from "node:zlib";
 import { dataPath } from "./dataPath";
 
-type LocalVerse = {
-  id: number;
-  translation: string;
-};
+// Keep recent chapters in memory, including repeat requests in Compare.
+const CHAPTER_CACHE_LIMIT = 340;
+const chapters = new Map<string, Map<number, string> | null>();
+let selectChapter: StatementSync | undefined;
 
-type LocalSurah = {
-  id: number;
-  total_verses: number;
-  verses: LocalVerse[];
-};
+const plainTranslationText = (text: string) =>
+  text
+    .replace(/<sup\b[^>]*\bfoot_note\s*=[^>]*>[\s\S]*?<\/sup>/gi, "")
+    .replace(/<\/(?:p|div)>\s*(?=<(?:p|div)\b)/gi, "\n")
+    .replace(/<\/?(?:a|b|div|i|p|span|sup)\b[^>]*>/gi, "")
+    .trim();
 
-type LocalTranslationFile = {
-  translator: string;
-  source: string;
-  surahs: LocalSurah[];
-};
-
-// Cache loaded translations in memory (they never change)
-const cache = new Map<string, LocalTranslationFile>();
-const surahVerseCache = new Map<string, Map<number, Map<number, string>>>();
-
-const loadTranslationFile = async (
-  translationId: string
-): Promise<LocalTranslationFile | null> => {
-  const cached = cache.get(translationId);
-  if (cached) return cached;
-
-  try {
-    const filePath = dataPath(
-      "translations",
-      `${translationId}.json`
-    );
-    const content = await readFile(filePath, "utf-8");
-    const data = JSON.parse(content) as LocalTranslationFile;
-    cache.set(translationId, data);
-    return data;
-  } catch {
-    return null;
-  }
-};
-
-export const getTranslation = async (
-  translationId: string,
-  surahNumber: number
-): Promise<Map<number, string> | null> => {
-  const cachedBySurah = surahVerseCache.get(translationId);
-  if (cachedBySurah) {
-    return cachedBySurah.get(surahNumber) || null;
+export const getTranslation = (translationId: string, surahNumber: number): Map<number, string> | null => {
+  const key = `${translationId}:${surahNumber}`;
+  const cached = chapters.get(key);
+  if (cached !== undefined) {
+    chapters.delete(key);
+    chapters.set(key, cached);
+    return cached;
   }
 
-  const file = await loadTranslationFile(translationId);
-  if (!file) return null;
-
-  const bySurah = new Map<number, Map<number, string>>();
-  for (const surah of file.surahs) {
-    const verses = new Map<number, string>();
-    for (const verse of surah.verses) {
-      verses.set(verse.id, String(verse.translation || "").trim());
-    }
-    bySurah.set(surah.id, verses);
+  if (!selectChapter) {
+    const db = new DatabaseSync(dataPath("translations.sqlite"), { readOnly: true });
+    selectChapter = db.prepare("SELECT verses FROM chapter WHERE surah = ? AND edition = ?");
   }
-  surahVerseCache.set(translationId, bySurah);
-
-  return bySurah.get(surahNumber) || null;
+  const row = selectChapter.get(surahNumber, translationId) as { verses: Uint8Array } | undefined;
+  const texts = row ? JSON.parse(gunzipSync(row.verses).toString("utf8")) as string[] : null;
+  const verses = texts && new Map(texts.map((text, index) => [index + 1, plainTranslationText(text)]));
+  if (chapters.size >= CHAPTER_CACHE_LIMIT) {
+    const oldest = chapters.keys().next().value;
+    if (oldest !== undefined) chapters.delete(oldest);
+  }
+  chapters.set(key, verses);
+  return verses;
 };
 
-export const getAyahTranslation = async (
-  translationId: string,
-  surahNumber: number,
-  ayahNumber: number
-): Promise<string | null> => {
-  const verses = await getTranslation(translationId, surahNumber);
-  return verses?.get(ayahNumber) ?? null;
-};
+export const getAyahTranslation = (translationId: string, surahNumber: number, ayahNumber: number) =>
+  getTranslation(translationId, surahNumber)?.get(ayahNumber) ?? null;

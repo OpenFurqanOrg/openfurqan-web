@@ -147,7 +147,7 @@ const buildPageByVerseKey = async (): Promise<Map<string, number>> => {
   return map;
 };
 
-const loadTranslationsBySurah = async (
+const loadTranslationsBySurah = (
   surahNumbers: number[],
   translationIds: string[],
   includeTransliteration: boolean
@@ -155,30 +155,20 @@ const loadTranslationsBySurah = async (
   const uniqueSurahs = [...new Set(surahNumbers)].sort((a, b) => a - b);
   const translationsById = new Map<string, Map<number, Map<number, string>>>();
 
-  await Promise.all(
-    translationIds.map(async (translationId) => {
-      const bySurah = new Map<number, Map<number, string>>();
-      await Promise.all(
-        uniqueSurahs.map(async (surahNumber) => {
-          const verses = await getTranslation(translationId, surahNumber);
-          bySurah.set(surahNumber, verses || new Map<number, string>());
-        })
-      );
-      translationsById.set(translationId, bySurah);
-    })
-  );
+  const loadEdition = (id: string) => {
+    const bySurah = new Map<number, Map<number, string>>();
+    for (const surahNumber of uniqueSurahs) {
+      const verses = getTranslation(id, surahNumber);
+      if (verses) bySurah.set(surahNumber, verses);
+    }
+    return bySurah;
+  };
 
-  let transliterationBySurah: Map<number, Map<number, string>> | null = null;
-  if (includeTransliteration) {
-    transliterationBySurah = new Map<number, Map<number, string>>();
-    await Promise.all(
-      uniqueSurahs.map(async (surahNumber) => {
-        const verses = await getTranslation("en-transliteration", surahNumber);
-        transliterationBySurah!.set(surahNumber, verses || new Map<number, string>());
-      })
-    );
+  for (const id of translationIds) {
+    translationsById.set(id, loadEdition(id));
   }
 
+  const transliterationBySurah = includeTransliteration ? loadEdition("en-transliteration") : null;
   return { translationsById, transliterationBySurah };
 };
 
@@ -191,7 +181,7 @@ const buildScopePayload = async (
   const sections = buildSections(entry);
   const ayahMeta = await loadAyahMeta();
   const pageByVerseKey = await buildPageByVerseKey();
-  const { translationsById, transliterationBySurah } = await loadTranslationsBySurah(
+  const { translationsById, transliterationBySurah } = loadTranslationsBySurah(
     refs.map((ref) => ref.surahNumber),
     translationIds,
     includeTransliteration

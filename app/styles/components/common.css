@@ -1189,6 +1189,10 @@
   flex-direction: column;
 }
 
+.compare-translations-list > .translation-search {
+  margin-bottom: 8px;
+}
+
 .compare-translation-row {
   position: relative;
   padding: 16px 2px;
@@ -1232,21 +1236,23 @@
 .compare-row-copy.is-copied {
   color: var(--accent-2);
   background: var(--accent-2-alpha-14);
-  animation: comparePopIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: compareCopyIn 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@keyframes comparePopIn {
-  0% {
-    transform: scale(0.7);
-    opacity: 0;
+@keyframes compareCopyIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0.6;
   }
-  60% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
-  100% {
+  to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compare-row-copy.is-copied {
+    animation: none;
   }
 }
 
@@ -2513,12 +2519,6 @@ textarea:focus-visible {
 .app {
   transition: background 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
     padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.content {
-  transition: max-width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-    padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-    gap 0.4s ease;
 }
 
 .topbar {
