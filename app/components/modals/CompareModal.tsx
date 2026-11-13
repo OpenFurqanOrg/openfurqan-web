@@ -1,6 +1,6 @@
 "use client";
 
-import { ALL_TRANSLATIONS, searchTranslations } from "../../lib/translations";
+import { translationsForReader } from "../../lib/translations";
 import { fetchJSON } from "../../lib/apiClient";
 import {
   cleanTafsirText,
@@ -8,7 +8,7 @@ import {
   splitTafsirParagraphs
 } from "../../lib/tafsirText";
 import { normalizeQuranDisplayArabic, verseKey } from "../../lib/utils";
-import { useQuranData, useUIState } from "../../contexts";
+import { usePreferences, useQuranData, useUIState } from "../../contexts";
 import { useLocalStorage } from "../../hooks";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { TAFSIR_EDITIONS } from "../study/StudyModeHelpers";
@@ -41,14 +41,15 @@ const getTafsirUrl = (edition: string, surah: number, ayah: number) =>
   `/api/tafsir?edition=${encodeURIComponent(edition)}&surah=${surah}&ayah=${ayah}`;
 
 export default function CompareModal() {
-  const { selectedSurah, surahData } = useQuranData();
+  const { selectedSurah, surahData, surahByNumber, readerScopeAyahs } = useQuranData();
+  const { selectedTranslations } = usePreferences();
   const { selectedAyah, setSelectedAyah, setFocusedAyahKey } = useUIState();
   const onClose = useCallback(() => setSelectedAyah(null), [setSelectedAyah]);
-  const selectedSurahNumber = selectedSurah?.number;
+  const comparisonSurah = selectedAyah?.surahNumber ? surahByNumber.get(selectedAyah.surahNumber) : selectedSurah;
+  const selectedSurahNumber = comparisonSurah?.number;
   const selectedAyahNumber = selectedAyah?.number;
 
   const [activeTab, setActiveTab] = useState<CompareTab>("translations");
-  const [translationQuery, setTranslationQuery] = useState("");
   const [payload, setPayload] = useState<CompareAllPayload | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -328,14 +329,13 @@ export default function CompareModal() {
     return () => window.removeEventListener("keydown", onKey);
   }, [changeActiveTab, onClose, selectedAyahNumber]);
 
-  if (!selectedAyah || !selectedSurah) {
+  if (!selectedAyah || !comparisonSurah) {
     return null;
   }
 
   const formatArabic = (text?: string) => normalizeQuranDisplayArabic(text ?? "");
   const allTranslations = payload?.translations || {};
-  const matchingEditions = translationQuery.trim() ? searchTranslations(translationQuery) : ALL_TRANSLATIONS;
-  const availableTranslations = matchingEditions.filter(
+  const availableTranslations = translationsForReader(selectedTranslations).filter(
     (translation) =>
       Boolean(allTranslations?.[translation.id]?.text) ||
       Boolean(selectedAyah.translations?.[translation.id]?.text)
@@ -343,7 +343,9 @@ export default function CompareModal() {
   const selectedTafsirEdition =
     TAFSIR_EDITIONS.find((edition) => edition.id === tafsirEdition) || TAFSIR_EDITIONS[0];
   const tafsirParagraphs = splitTafsirParagraphs(tafsirText);
-  const surahAyahs = surahData?.ayahs || [];
+  const surahAyahs = selectedAyah.surahNumber
+    ? readerScopeAyahs.filter(ayah => ayah.surahNumber === selectedAyah.surahNumber)
+    : surahData?.ayahs ?? [];
   const previousAyah = surahAyahs.find((ayah) => ayah.number === selectedAyah.number - 1);
   const nextAyah = surahAyahs.find((ayah) => ayah.number === selectedAyah.number + 1);
   const currentTafsirKey =
@@ -402,7 +404,7 @@ export default function CompareModal() {
     if (!ayah) return;
     saveCurrentScrollPosition();
     setSelectedAyah(ayah);
-    setFocusedAyahKey(verseKey(selectedSurah.number, ayah.number));
+    setFocusedAyahKey(verseKey(comparisonSurah.number, ayah.number));
   };
 
   return (
@@ -416,7 +418,7 @@ export default function CompareModal() {
       >
         <div className="compare-header">
           <h3 id="compare-modal-title" className="compare-header-title">
-            <span className="compare-header-surah">{selectedSurah.englishName}</span>
+            <span className="compare-header-surah">{comparisonSurah.englishName}</span>
             <span className="compare-header-ayah">Ayah {selectedAyah.number}</span>
           </h3>
           <div className="compare-header-actions">
@@ -511,17 +513,6 @@ export default function CompareModal() {
             </div>
             {activeTab === "translations" ? (
               <div className="compare-translations-list" aria-busy={loading}>
-                <input
-                  type="search"
-                  className="settings-input translation-search"
-                  aria-label="Search translations"
-                  placeholder="Search by language or translator"
-                  value={translationQuery}
-                  onChange={event => {
-                    setTranslationQuery(event.target.value);
-                    window.requestAnimationFrame(updateThumb);
-                  }}
-                />
                 {error && (
                   <p className="compare-translation-status error" role="alert">
                     {error}
@@ -567,7 +558,7 @@ export default function CompareModal() {
                   })
                 ) : !error ? (
                   <p className="compare-translation-status" role="status">
-                    {translationQuery.trim() ? "No translations match your search." : "No translations are available for this ayah."}
+                    No translations in your languages for this ayah.
                   </p>
                 ) : null}
               </div>

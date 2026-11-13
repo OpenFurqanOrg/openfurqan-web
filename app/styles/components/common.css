@@ -1189,10 +1189,6 @@
   flex-direction: column;
 }
 
-.compare-translations-list > .translation-search {
-  margin-bottom: 8px;
-}
-
 .compare-translation-row {
   position: relative;
   padding: 16px 2px;

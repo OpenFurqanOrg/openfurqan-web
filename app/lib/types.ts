@@ -16,6 +16,7 @@ export type AyahTranslation = {
 };
 
 export type Ayah = {
+  surahNumber?: number;
   number: number;
   arabic?: string;
   arabicTajweed?: string | null;

@@ -466,9 +466,10 @@ export function useHomeController() {
   }, []);
 
   const handleCompare = (ayah: Ayah) => {
-    if (!selectedSurah) return;
+    const surahNumber = ayah.surahNumber ?? selectedSurah?.number;
+    if (!surahNumber) return;
     setSelectedAyah(ayah);
-    setFocusedAyahKey(verseKey(selectedSurah.number, ayah.number));
+    setFocusedAyahKey(verseKey(surahNumber, ayah.number));
   };
 
   const retryData = useCallback(() => {

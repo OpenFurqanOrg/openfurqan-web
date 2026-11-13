@@ -20,6 +20,18 @@ export function parseTranslationIds(value: string | null) {
   return ids.length ? [...new Set(ids)] : [DEFAULT_TRANSLATION_ID];
 }
 
+export function translationsForReader(selectedIds: readonly string[]) {
+  const selected = [...new Set(selectedIds)].flatMap(id => {
+    const edition = TRANSLATIONS_BY_ID.get(id);
+    return edition ? [edition] : [];
+  });
+  const languages = new Set(selected.map(edition => edition.language));
+  const otherEditions = ALL_TRANSLATIONS.filter(
+    edition => languages.has(edition.language) && !selectedIds.includes(edition.id)
+  );
+  return [...selected, ...otherEditions];
+}
+
 const normalizeSearch = (value: string) =>
   value.normalize("NFKD").toLocaleLowerCase("en").replace(/(\p{Script=Latin})\p{M}+/gu, "$1");
 
